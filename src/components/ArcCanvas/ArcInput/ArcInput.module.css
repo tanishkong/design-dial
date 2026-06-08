@@ -1,0 +1,59 @@
+.section {
+  padding: var(--arc-space-xl);
+  padding-top: 0;
+}
+
+.row {
+  display: flex;
+  gap: var(--arc-space-sm);
+}
+
+.field {
+  flex: 1;
+  padding: var(--arc-space-sm) var(--arc-space-md);
+  background-color: var(--arc-color-surface);
+  border: 1px solid var(--arc-color-border);
+  border-radius: var(--arc-radius);
+  font-family: var(--arc-font-family);
+  font-size: 0.875rem;
+  font-weight: var(--arc-font-weight);
+  color: var(--arc-color-text);
+  letter-spacing: var(--arc-letter-spacing);
+  line-height: var(--arc-line-height);
+  outline: none;
+  transition:
+    background-color var(--arc-duration) var(--arc-easing),
+    border-color var(--arc-duration) var(--arc-easing),
+    border-radius var(--arc-duration) var(--arc-easing),
+    font-family var(--arc-duration) var(--arc-easing),
+    letter-spacing var(--arc-duration) var(--arc-easing),
+    padding var(--arc-duration) var(--arc-easing);
+}
+
+.field::placeholder {
+  color: var(--arc-color-muted);
+}
+
+.button {
+  padding: var(--arc-space-sm) var(--arc-space-lg);
+  background-color: var(--arc-color-accent);
+  border: none;
+  border-radius: var(--arc-radius);
+  font-family: var(--arc-font-family);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--arc-color-bg);
+  letter-spacing: var(--arc-letter-spacing);
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background-color var(--arc-duration) var(--arc-easing),
+    border-radius var(--arc-duration) var(--arc-easing),
+    font-family var(--arc-duration) var(--arc-easing),
+    letter-spacing var(--arc-duration) var(--arc-easing),
+    padding var(--arc-duration) var(--arc-easing);
+}
+
+.button:hover {
+  opacity: 0.85;
+}

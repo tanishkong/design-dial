@@ -1,0 +1,82 @@
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--arc-space-md);
+  padding: var(--arc-space-sm) var(--arc-space-lg);
+  border-bottom: 1px solid var(--arc-color-border);
+  transition:
+    background-color var(--arc-duration) var(--arc-easing),
+    border-color var(--arc-duration) var(--arc-easing),
+    padding var(--arc-duration) var(--arc-easing);
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 140px;
+}
+
+.name {
+  font-family: var(--arc-font-family);
+  font-size: 0.875rem;
+  font-weight: var(--arc-font-weight);
+  color: var(--arc-color-text);
+  line-height: var(--arc-line-height);
+  letter-spacing: var(--arc-letter-spacing);
+  transition:
+    color var(--arc-duration) var(--arc-easing),
+    font-family var(--arc-duration) var(--arc-easing),
+    letter-spacing var(--arc-duration) var(--arc-easing);
+}
+
+.tag {
+  font-family: var(--arc-font-family);
+  font-size: 0.6875rem;
+  font-weight: var(--arc-font-weight);
+  color: var(--arc-color-muted);
+  letter-spacing: var(--arc-letter-spacing);
+  transition:
+    color var(--arc-duration) var(--arc-easing),
+    font-family var(--arc-duration) var(--arc-easing),
+    letter-spacing var(--arc-duration) var(--arc-easing);
+}
+
+.track {
+  flex: 1;
+  height: 6px;
+  background-color: var(--arc-color-border);
+  border-radius: var(--arc-radius-sm);
+  overflow: hidden;
+  transition:
+    background-color var(--arc-duration) var(--arc-easing),
+    border-radius var(--arc-duration) var(--arc-easing);
+}
+
+.fill {
+  height: 100%;
+  width: var(--fill-width);
+  background-color: var(--arc-color-accent);
+  border-radius: var(--arc-radius-sm);
+  transition:
+    background-color var(--arc-duration) var(--arc-easing),
+    border-radius var(--arc-duration) var(--arc-easing);
+}
+
+.percent {
+  font-family: var(--arc-font-family);
+  font-size: 0.75rem;
+  font-weight: var(--arc-font-weight);
+  color: var(--arc-color-muted);
+  min-width: 32px;
+  text-align: right;
+  letter-spacing: var(--arc-letter-spacing);
+  transition:
+    color var(--arc-duration) var(--arc-easing),
+    font-family var(--arc-duration) var(--arc-easing),
+    letter-spacing var(--arc-duration) var(--arc-easing);
+}

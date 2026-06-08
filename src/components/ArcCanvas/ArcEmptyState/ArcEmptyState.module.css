@@ -1,0 +1,94 @@
+.section {
+  padding: var(--arc-space-xl);
+  padding-top: 0;
+}
+
+.label {
+  font-family: var(--arc-font-family);
+  font-size: 0.6875rem;
+  font-weight: var(--arc-font-weight);
+  letter-spacing: var(--arc-letter-spacing);
+  color: var(--arc-color-muted);
+  margin: 0 0 var(--arc-space-md);
+  text-transform: uppercase;
+  transition:
+    color var(--arc-duration) var(--arc-easing),
+    font-family var(--arc-duration) var(--arc-easing),
+    letter-spacing var(--arc-duration) var(--arc-easing);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--arc-space-sm);
+  padding: var(--arc-space-xl);
+  background-color: var(--arc-color-surface);
+  border: 1px solid var(--arc-color-border);
+  border-radius: var(--arc-radius);
+  text-align: center;
+  transition:
+    background-color var(--arc-duration) var(--arc-easing),
+    border-color var(--arc-duration) var(--arc-easing),
+    border-radius var(--arc-duration) var(--arc-easing),
+    padding var(--arc-duration) var(--arc-easing);
+}
+
+.icon {
+  color: var(--arc-color-muted);
+  margin-bottom: var(--arc-space-xs);
+  transition: color var(--arc-duration) var(--arc-easing);
+}
+
+.headline {
+  font-family: var(--arc-font-family);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--arc-color-text);
+  line-height: var(--arc-line-height);
+  letter-spacing: var(--arc-letter-spacing);
+  margin: 0;
+  transition:
+    color var(--arc-duration) var(--arc-easing),
+    font-family var(--arc-duration) var(--arc-easing),
+    letter-spacing var(--arc-duration) var(--arc-easing);
+}
+
+.subtext {
+  font-family: var(--arc-font-family);
+  font-size: 0.8125rem;
+  font-weight: var(--arc-font-weight);
+  color: var(--arc-color-muted);
+  line-height: var(--arc-line-height);
+  letter-spacing: var(--arc-letter-spacing);
+  margin: 0;
+  max-width: 280px;
+  transition:
+    color var(--arc-duration) var(--arc-easing),
+    font-family var(--arc-duration) var(--arc-easing),
+    letter-spacing var(--arc-duration) var(--arc-easing);
+}
+
+.cta {
+  margin-top: var(--arc-space-xs);
+  padding: var(--arc-space-sm) var(--arc-space-lg);
+  background-color: var(--arc-color-accent);
+  border: none;
+  border-radius: var(--arc-radius);
+  font-family: var(--arc-font-family);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--arc-color-bg);
+  letter-spacing: var(--arc-letter-spacing);
+  cursor: pointer;
+  transition:
+    background-color var(--arc-duration) var(--arc-easing),
+    border-radius var(--arc-duration) var(--arc-easing),
+    font-family var(--arc-duration) var(--arc-easing),
+    letter-spacing var(--arc-duration) var(--arc-easing),
+    padding var(--arc-duration) var(--arc-easing);
+}
+
+.cta:hover {
+  opacity: 0.85;
+}

@@ -1,0 +1,31 @@
+.section {
+  padding: var(--arc-space-xl);
+  padding-top: 0;
+}
+
+.label {
+  font-family: var(--arc-font-family);
+  font-size: 0.6875rem;
+  font-weight: var(--arc-font-weight);
+  letter-spacing: var(--arc-letter-spacing);
+  color: var(--arc-color-muted);
+  margin: 0 0 var(--arc-space-md);
+  text-transform: uppercase;
+  transition:
+    color var(--arc-duration) var(--arc-easing),
+    font-family var(--arc-duration) var(--arc-easing),
+    letter-spacing var(--arc-duration) var(--arc-easing);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--arc-color-surface);
+  border: 1px solid var(--arc-color-border);
+  border-radius: var(--arc-radius);
+  overflow: hidden;
+  transition:
+    background-color var(--arc-duration) var(--arc-easing),
+    border-color var(--arc-duration) var(--arc-easing),
+    border-radius var(--arc-duration) var(--arc-easing);
+}
