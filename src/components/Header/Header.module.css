@@ -1,0 +1,39 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 48px;
+  padding: 0 20px;
+  background-color: var(--tool-panel);
+  border-bottom: 1px solid var(--tool-border);
+  flex-shrink: 0;
+}
+
+.wordmark {
+  font-family: var(--tool-font);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--tool-text);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.exportButton {
+  font-family: var(--tool-font);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--tool-muted);
+  background: none;
+  border: 1px solid var(--tool-border);
+  border-radius: var(--tool-radius);
+  padding: 5px 12px;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: color 150ms, border-color 150ms;
+}
+
+.exportButton:hover {
+  color: var(--tool-text);
+  border-color: var(--tool-muted);
+}

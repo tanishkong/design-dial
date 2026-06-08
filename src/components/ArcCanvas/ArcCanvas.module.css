@@ -1,0 +1,6 @@
+.canvas {
+  flex: 1;
+  overflow-y: auto;
+  background-color: var(--arc-color-bg);
+  min-height: 0;
+}

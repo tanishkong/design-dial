@@ -1,0 +1,33 @@
+/* Tool chrome CSS variables — static, never change */
+:root {
+  --tool-bg:      #0E0C0A;
+  --tool-panel:   #111110;
+  --tool-border:  #2A2620;
+  --tool-text:    #F0EAD6;
+  --tool-muted:   #6B6560;
+  --tool-accent:  #F5A623;
+  --tool-font:    'Geist Mono', monospace;
+  --tool-radius:  4px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background-color: var(--tool-bg);
+  color: var(--tool-text);
+  font-family: var(--tool-font);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

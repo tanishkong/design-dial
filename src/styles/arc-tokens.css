@@ -1,0 +1,34 @@
+/* Arc canvas CSS variables — dynamic, updated by tokenEngine via style.setProperty */
+#arc-canvas {
+  /* Geometry */
+  --arc-radius:    12px;
+  --arc-radius-sm: calc(var(--arc-radius) * 0.5);
+  --arc-radius-lg: calc(var(--arc-radius) * 1.5);
+
+  /* Spacing */
+  --arc-space-unit: 16px;
+  --arc-space-xs:   calc(var(--arc-space-unit) * 0.5);
+  --arc-space-sm:   calc(var(--arc-space-unit) * 0.75);
+  --arc-space-md:   var(--arc-space-unit);
+  --arc-space-lg:   calc(var(--arc-space-unit) * 1.5);
+  --arc-space-xl:   calc(var(--arc-space-unit) * 2.5);
+
+  /* Color */
+  --arc-color-accent:        #F5A623;
+  --arc-color-bg:            #FAFAF9;
+  --arc-color-surface:       #FFFFFF;
+  --arc-color-text:          #1A1A18;
+  --arc-color-muted:         #6B6560;
+  --arc-color-border:        #E5E2DC;
+  --arc-color-accent-subtle: rgba(245, 166, 35, 0.08);
+
+  /* Typography */
+  --arc-font-family:    'Geist', sans-serif;
+  --arc-font-weight:    400;
+  --arc-letter-spacing: 0em;
+  --arc-line-height:    1.55;
+
+  /* Motion */
+  --arc-duration: 250ms;
+  --arc-easing:   cubic-bezier(0.4, 0, 0.2, 1);
+}
