@@ -1,0 +1,5 @@
+.grid {
+  display: flex;
+  gap: var(--arc-space-md);
+  padding: var(--arc-space-xl) var(--arc-space-xl) 0;
+}

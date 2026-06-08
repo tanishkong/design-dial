@@ -22,7 +22,7 @@ export default function App() {
           setDial={setDial}
           isAnimating={isAnimating}
         />
-        <ArcCanvas />
+        <ArcCanvas dialState={dialState} />
       </div>
     </div>
   )

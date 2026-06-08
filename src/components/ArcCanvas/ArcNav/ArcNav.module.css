@@ -1,0 +1,73 @@
+.nav {
+  display: flex;
+  align-items: center;
+  gap: var(--arc-space-lg);
+  padding: var(--arc-space-md) var(--arc-space-xl);
+  background-color: var(--arc-color-surface);
+  border-bottom: 1px solid var(--arc-color-border);
+  border-radius: var(--arc-radius) var(--arc-radius) 0 0;
+  transition:
+    background-color var(--arc-duration) var(--arc-easing),
+    border-color var(--arc-duration) var(--arc-easing),
+    border-radius var(--arc-duration) var(--arc-easing),
+    padding var(--arc-duration) var(--arc-easing);
+}
+
+.wordmark {
+  font-family: var(--arc-font-family);
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: var(--arc-letter-spacing);
+  color: var(--arc-color-text);
+  flex-shrink: 0;
+  transition:
+    font-family var(--arc-duration) var(--arc-easing),
+    color var(--arc-duration) var(--arc-easing),
+    letter-spacing var(--arc-duration) var(--arc-easing);
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: var(--arc-space-lg);
+  flex: 1;
+}
+
+.link {
+  font-family: var(--arc-font-family);
+  font-size: 0.875rem;
+  font-weight: var(--arc-font-weight);
+  letter-spacing: var(--arc-letter-spacing);
+  line-height: var(--arc-line-height);
+  color: var(--arc-color-muted);
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    color var(--arc-duration) var(--arc-easing),
+    font-family var(--arc-duration) var(--arc-easing),
+    letter-spacing var(--arc-duration) var(--arc-easing);
+}
+
+.link:hover {
+  color: var(--arc-color-text);
+}
+
+.cta {
+  font-family: var(--arc-font-family);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: var(--arc-letter-spacing);
+  color: var(--arc-color-surface);
+  background-color: var(--arc-color-accent);
+  border: none;
+  border-radius: var(--arc-radius);
+  padding: var(--arc-space-xs) var(--arc-space-md);
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background-color var(--arc-duration) var(--arc-easing),
+    border-radius var(--arc-duration) var(--arc-easing),
+    padding var(--arc-duration) var(--arc-easing),
+    font-family var(--arc-duration) var(--arc-easing),
+    letter-spacing var(--arc-duration) var(--arc-easing);
+}

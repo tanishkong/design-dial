@@ -1,0 +1,42 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--arc-space-xs);
+  padding: var(--arc-space-lg);
+  background-color: var(--arc-color-surface);
+  border: 1px solid var(--arc-color-border);
+  border-radius: var(--arc-radius);
+  flex: 1;
+  min-width: 0;
+  transition:
+    background-color var(--arc-duration) var(--arc-easing),
+    border-color var(--arc-duration) var(--arc-easing),
+    border-radius var(--arc-duration) var(--arc-easing),
+    padding var(--arc-duration) var(--arc-easing);
+}
+
+.value {
+  font-family: var(--arc-font-family);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--arc-color-text);
+  letter-spacing: var(--arc-letter-spacing);
+  transition:
+    color var(--arc-duration) var(--arc-easing),
+    font-family var(--arc-duration) var(--arc-easing),
+    letter-spacing var(--arc-duration) var(--arc-easing);
+}
+
+.label {
+  font-family: var(--arc-font-family);
+  font-size: 0.8125rem;
+  font-weight: var(--arc-font-weight);
+  line-height: var(--arc-line-height);
+  color: var(--arc-color-muted);
+  letter-spacing: var(--arc-letter-spacing);
+  transition:
+    color var(--arc-duration) var(--arc-easing),
+    font-family var(--arc-duration) var(--arc-easing),
+    letter-spacing var(--arc-duration) var(--arc-easing);
+}
