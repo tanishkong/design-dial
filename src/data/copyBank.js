@@ -1,1 +1,58 @@
-// Task 5
+export const copyBank = {
+  cta: {
+    playful_warm:  'Ready to jump in?',
+    playful_tech:  'Start building',
+    serious_warm:  "Let's get started",
+    serious_tech:  'Initialize workspace',
+    default:       'Create project',
+  },
+  emptyHeadline: {
+    playful:   'Nothing here yet!',
+    serious:   'No collaborators found',
+    warm:      "You're flying solo right now",
+    technical: '0 collaborators',
+    default:   'No collaborators yet',
+  },
+  emptySubtext: {
+    playful:   'Add someone and start creating together.',
+    serious:   'No collaborators have been assigned to this workspace.',
+    warm:      'Invite someone you trust to join the project.',
+    technical: 'No entries in collaborators[].',
+    default:   'Invite collaborators to get started.',
+  },
+  addButton: {
+    calm:      'Add',
+    energetic: '+ New',
+    playful:   "Let's go",
+    serious:   'Create',
+    default:   'Add',
+  },
+  navMain: {
+    playful:   'Projects',
+    serious:   'Dashboard',
+    warm:      'My Work',
+    technical: '/projects',
+    default:   'Projects',
+  },
+  metricActivity: {
+    playful:   'Things in motion',
+    serious:   'Active projects',
+    warm:      'What I\'m working on',
+    technical: 'active_projects',
+    default:   'Active Projects',
+  },
+  metricProgress: {
+    playful:   'Ideas flying around',
+    serious:   'Ideas this week',
+    warm:      'Creative sparks',
+    technical: 'ideas_logged',
+    default:   'Ideas This Week',
+  },
+  inputPlaceholder: {
+    playful:   'Name your next big thing...',
+    serious:   'Project name',
+    warm:      'What are you working on?',
+    technical: 'project_name',
+    default:   'New project name',
+  },
+}
