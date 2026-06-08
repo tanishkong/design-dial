@@ -1,0 +1,40 @@
+.section {
+  padding: 20px 0;
+}
+
+.sectionLabel {
+  display: block;
+  font-family: var(--tool-font);
+  font-size: 10px;
+  color: var(--tool-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0 20px 12px;
+}
+
+.divider {
+  height: 1px;
+  background-color: var(--tool-border);
+  margin-bottom: 4px;
+}
+
+.chipList {
+  position: relative;
+  padding: 4px 0;
+}
+
+/* Sliding accent bar — moves vertically between active chips */
+.indicator {
+  position: absolute;
+  left: 0;
+  top: var(--indicator-top, 0px);
+  width: 2px;
+  height: var(--indicator-height, 0px);
+  background: var(--tool-accent);
+  border-radius: 1px;
+  opacity: var(--indicator-opacity, 0);
+  transition:
+    top 280ms cubic-bezier(0.4, 0, 0.2, 1),
+    height 200ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 150ms ease;
+}

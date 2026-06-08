@@ -6,7 +6,11 @@ export default function Dial({ axisKey, leftLabel, rightLabel, value, onChange, 
   }
 
   return (
-    <div className={styles.dial}>
+    <div
+      className={styles.dial}
+      data-dial={axisKey}
+      style={{ '--thumb-pos': value }}
+    >
       <div className={styles.header}>
         <span className={styles.axisLabels}>
           <span className={styles.labelLeft}>{leftLabel}</span>
@@ -15,15 +19,20 @@ export default function Dial({ axisKey, leftLabel, rightLabel, value, onChange, 
         </span>
         <span className={styles.value}>{value}</span>
       </div>
-      <input
-        type="range"
-        min="0"
-        max="100"
-        value={value}
-        onChange={handleChange}
-        disabled={disabled}
-        className={styles.track}
-      />
+      <div className={styles.trackWrapper}>
+        {/* Native input is invisible but handles all drag interaction */}
+        <input
+          type="range"
+          min="0"
+          max="100"
+          value={value}
+          onChange={handleChange}
+          disabled={disabled}
+          className={styles.nativeInput}
+        />
+        <div className={styles.visualTrack} />
+        <div className={styles.thumb} />
+      </div>
     </div>
   )
 }

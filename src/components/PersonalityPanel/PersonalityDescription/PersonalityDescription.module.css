@@ -33,5 +33,5 @@
   color: #F0EAD6;
   line-height: 1.6;
   height: 29px;
-  transition: opacity 100ms linear;
+  transition: opacity 100ms linear, transform 100ms linear;
 }

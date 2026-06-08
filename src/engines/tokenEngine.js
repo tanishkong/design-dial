@@ -100,10 +100,7 @@ export function computeTokens(dialState) {
   };
 }
 
-export function applyTokensToDOM(tokenSet) {
-  const el = document.getElementById('arc-canvas');
-  if (!el) return;
-
+function writeAllTokens(el, tokenSet) {
   const { radius, spaceUnit, fontFamily, fontWeight, letterSpacing,
           lineHeight, accentHex, bgHex, surfaceHex, textHex, duration, easing } = tokenSet;
 
@@ -119,4 +116,30 @@ export function applyTokensToDOM(tokenSet) {
   el.style.setProperty('--arc-color-text', textHex);
   el.style.setProperty('--arc-duration', `${duration}ms`);
   el.style.setProperty('--arc-easing', easing);
+}
+
+// Tracks the font currently rendered — null until first applyTokensToDOM call
+let displayedFont = null;
+let fontTimer = null;
+
+export function applyTokensToDOM(tokenSet) {
+  const el = document.getElementById('arc-canvas');
+  if (!el) return;
+
+  const fontChanging = displayedFont !== null && tokenSet.fontFamily !== displayedFont;
+
+  if (fontChanging) {
+    // Cancel any in-flight crossfade and restart
+    if (fontTimer) clearTimeout(fontTimer);
+    el.style.opacity = '0';
+    fontTimer = setTimeout(() => {
+      writeAllTokens(el, tokenSet);
+      displayedFont = tokenSet.fontFamily;
+      el.style.opacity = '1';
+      fontTimer = null;
+    }, 70);
+  } else {
+    writeAllTokens(el, tokenSet);
+    displayedFont = tokenSet.fontFamily;
+  }
 }

@@ -3,6 +3,8 @@
   flex-direction: column;
   gap: 8px;
   padding: 12px 0;
+  /* Default thumb animation state — overridden by usePresetTransition during preset clicks */
+  --thumb-easing: linear;
 }
 
 .header {
@@ -36,55 +38,74 @@
   text-align: right;
 }
 
-/* Range input reset + custom styling */
-.track {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100%;
-  height: 2px;
-  background: var(--tool-border);
-  border-radius: 1px;
-  outline: none;
-  cursor: pointer;
+.trackWrapper {
+  position: relative;
+  height: 12px;
+  display: flex;
+  align-items: center;
 }
 
-.track:disabled {
-  opacity: 0.4;
+/* Transparent overlay — captures all drag/click interaction */
+.nativeInput {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  margin: 0;
+  z-index: 2;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.nativeInput:disabled {
   cursor: not-allowed;
 }
 
-.track::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--tool-text);
-  cursor: pointer;
-  transition: background 100ms ease, transform 100ms ease;
-}
-
-.track:not(:disabled)::-webkit-slider-thumb:hover {
-  background: var(--tool-accent);
-  transform: scale(1.2);
-}
-
-.track::-moz-range-thumb {
-  width: 12px;
-  height: 12px;
-  border: none;
-  border-radius: 50%;
-  background: var(--tool-text);
-  cursor: pointer;
-}
-
-.track::-webkit-slider-runnable-track {
-  height: 2px;
-  border-radius: 1px;
-}
-
-.track::-moz-range-track {
+/* Visual track bar */
+.visualTrack {
+  position: absolute;
+  left: 0;
+  right: 0;
   height: 2px;
   background: var(--tool-border);
   border-radius: 1px;
+  z-index: 0;
+  transition: opacity 150ms ease;
+}
+
+/* Visual thumb — position driven by --thumb-pos CSS var on .dial root */
+.thumb {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--tool-text);
+  /* Center the 12px thumb at the correct track position */
+  left: calc(var(--thumb-pos, 50) * 1% - 6px);
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 1;
+  transition:
+    left var(--thumb-duration, 0ms) var(--thumb-easing, linear),
+    background 150ms ease,
+    transform 150ms ease;
+}
+
+/* Hover state — parent captures hover since native input is z-index 2 */
+.trackWrapper:hover .thumb {
+  background: var(--tool-accent);
+  transform: translateY(-50%) scale(1.2);
+}
+
+/* Disabled state via sibling combinator (nativeInput is first child) */
+.nativeInput:disabled ~ .visualTrack {
+  opacity: 0.4;
+}
+
+.nativeInput:disabled ~ .thumb {
+  opacity: 0.4;
+  transform: translateY(-50%);
 }

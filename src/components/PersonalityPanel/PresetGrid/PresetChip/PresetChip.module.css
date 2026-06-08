@@ -1,0 +1,22 @@
+.chip {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 7px 20px 7px 24px;
+  font-family: var(--tool-font);
+  font-size: 11px;
+  color: var(--tool-muted);
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: color 150ms ease;
+}
+
+.chip:hover {
+  color: var(--tool-text);
+}
+
+.active {
+  color: var(--tool-text);
+}

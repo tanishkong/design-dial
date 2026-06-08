@@ -13,5 +13,5 @@ export function useDialState() {
     applyTokensToDOM(computeTokens(newDialState))
   }
 
-  return { dialState, setDial, isAnimating, setIsAnimating }
+  return { dialState, setDialState, setDial, isAnimating, setIsAnimating }
 }

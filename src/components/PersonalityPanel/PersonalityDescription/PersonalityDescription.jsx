@@ -2,42 +2,59 @@ import { useState, useEffect, useRef } from 'react'
 import { resolveWords } from '../../../engines/personalityEngine'
 import styles from './PersonalityDescription.module.css'
 
-function DescriptorWord({ word, delay }) {
+function DescriptorWord({ word, delay, isAnimating }) {
   const [displayWord, setDisplayWord] = useState(word)
-  const [visible, setVisible] = useState(true)
-  const timeoutsRef = useRef([])
+  const [phase, setPhase] = useState('visible') // 'visible' | 'out' | 'enter'
+  const wasAnimatingRef = useRef(false)
+  const timersRef = useRef([])
+
+  function clearTimers() {
+    timersRef.current.forEach(clearTimeout)
+    timersRef.current = []
+  }
 
   useEffect(() => {
     if (word === displayWord) return
 
-    timeoutsRef.current.forEach(clearTimeout)
-    timeoutsRef.current = []
+    clearTimers()
+    // Capture whether this change was triggered by a preset (not dial drag)
+    wasAnimatingRef.current = isAnimating
 
     const t1 = setTimeout(() => {
-      setVisible(false)
+      setPhase('out')
       const t2 = setTimeout(() => {
         setDisplayWord(word)
-        setVisible(true)
+        setPhase('enter')
+        // One frame: let browser paint enter state before transitioning to visible
+        const t3 = setTimeout(() => setPhase('visible'), 20)
+        timersRef.current.push(t3)
       }, 100)
-      timeoutsRef.current.push(t2)
+      timersRef.current.push(t2)
     }, delay)
 
-    timeoutsRef.current.push(t1)
-  }, [word])
+    timersRef.current.push(t1)
+  }, [word]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  useEffect(() => () => timeoutsRef.current.forEach(clearTimeout), [])
+  useEffect(() => () => clearTimers(), [])
+
+  const slide = wasAnimatingRef.current
+  const style = {
+    opacity: phase === 'visible' ? 1 : 0,
+    transform:
+      !slide        ? 'none'
+      : phase === 'out'   ? 'translateY(-6px)'
+      : phase === 'enter' ? 'translateY(6px)'
+      : 'none',
+  }
 
   return (
-    <span
-      className={styles.word}
-      style={{ opacity: visible ? 1 : 0 }}
-    >
+    <span className={styles.word} style={style}>
       {displayWord}
     </span>
   )
 }
 
-export default function PersonalityDescription({ dialState }) {
+export default function PersonalityDescription({ dialState, isAnimating }) {
   const words = resolveWords(dialState)
 
   return (
@@ -46,7 +63,7 @@ export default function PersonalityDescription({ dialState }) {
       <div className={styles.divider} />
       <div className={styles.wordList}>
         {words.map((word, i) => (
-          <DescriptorWord key={i} word={word} delay={i * 40} />
+          <DescriptorWord key={i} word={word} delay={i * 40} isAnimating={isAnimating} />
         ))}
       </div>
     </div>

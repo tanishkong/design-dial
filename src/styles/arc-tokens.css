@@ -1,5 +1,7 @@
 /* Arc canvas CSS variables — dynamic, updated by tokenEngine via style.setProperty */
 #arc-canvas {
+  /* Font-family crossfade bridge — opacity managed by applyTokensToDOM */
+  transition: opacity 70ms linear;
   /* Geometry */
   --arc-radius:    12px;
   --arc-radius-sm: calc(var(--arc-radius) * 0.5);
