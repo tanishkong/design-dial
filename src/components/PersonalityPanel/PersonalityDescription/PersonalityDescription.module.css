@@ -1,5 +1,6 @@
 .root {
-  padding: 20px 20px 0;
+  padding: 28px 24px 0;
+  border-bottom: 1px solid var(--tool-border);
 }
 
 .label {
@@ -9,29 +10,31 @@
   color: var(--tool-muted);
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  margin-bottom: 12px;
+  margin-bottom: 20px;
 }
 
 .divider {
   height: 1px;
   background-color: var(--tool-border);
-  margin: 0 -20px 16px;
+  margin: 0 -24px 22px;
 }
 
 .wordList {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding-bottom: 20px;
+  gap: 0;
+  padding-bottom: 32px;
 }
 
 .word {
   display: block;
   font-family: 'Outfit', sans-serif;
-  font-size: 18px;
-  font-weight: 500;
+  font-size: calc(36px * var(--arc-type-scale, 1));
+  font-weight: 600;
   color: #F0EAD6;
-  line-height: 1.6;
-  height: 29px;
-  transition: opacity 100ms linear, transform 100ms linear;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  /* Height tracks font-size to prevent layout reflow during opacity crossfade */
+  height: calc(42px * var(--arc-type-scale, 1));
+  transition: opacity 100ms linear, transform 100ms linear, font-size var(--arc-duration) var(--arc-easing), height var(--arc-duration) var(--arc-easing);
 }

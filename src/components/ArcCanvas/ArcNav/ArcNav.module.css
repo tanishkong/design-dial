@@ -6,22 +6,25 @@
   background-color: var(--arc-color-surface);
   border-bottom: 1px solid var(--arc-color-border);
   border-radius: var(--arc-radius) var(--arc-radius) 0 0;
+  box-shadow: var(--arc-card-shadow, none);
   transition:
     background-color var(--arc-duration) var(--arc-easing),
     border-color var(--arc-duration) var(--arc-easing),
-    border-radius var(--arc-duration) var(--arc-easing),
+    border-radius var(--arc-radius) var(--arc-easing),
+    box-shadow var(--arc-duration) var(--arc-easing),
     padding var(--arc-duration) var(--arc-easing);
 }
 
 .wordmark {
   font-family: var(--arc-font-family);
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: calc(1.1rem * var(--arc-type-scale, 1));
   letter-spacing: var(--arc-letter-spacing);
   color: var(--arc-color-text);
   flex-shrink: 0;
   transition:
     font-family var(--arc-duration) var(--arc-easing),
+    font-size var(--arc-duration) var(--arc-easing),
     color var(--arc-duration) var(--arc-easing),
     letter-spacing var(--arc-duration) var(--arc-easing);
 }
@@ -35,7 +38,7 @@
 
 .link {
   font-family: var(--arc-font-family);
-  font-size: 0.875rem;
+  font-size: max(0.75rem, calc(0.875rem * var(--arc-type-scale, 1)));
   font-weight: var(--arc-font-weight);
   letter-spacing: var(--arc-letter-spacing);
   line-height: var(--arc-line-height);
@@ -54,7 +57,7 @@
 
 .cta {
   font-family: var(--arc-font-family);
-  font-size: 0.875rem;
+  font-size: max(0.75rem, calc(0.875rem * var(--arc-type-scale, 1)));
   font-weight: 500;
   letter-spacing: var(--arc-letter-spacing);
   color: var(--arc-color-surface);

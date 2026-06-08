@@ -11,8 +11,6 @@ const DIALS = [
 export default function DialGroup({ dialState, setDial, isAnimating }) {
   return (
     <div className={styles.group}>
-      <span className={styles.sectionLabel}>Dials</span>
-      <div className={styles.divider} />
       {DIALS.map(({ axisKey, leftLabel, rightLabel }) => (
         <Dial
           key={axisKey}

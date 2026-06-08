@@ -12,10 +12,10 @@ const DATA = [
 
 const MAX = 6
 
-export default function ArcChart() {
+export default function ArcChart({ copy }) {
   return (
     <section className={styles.section}>
-      <p className={styles.label}>WEEKLY OUTPUT</p>
+      <p className={styles.label}>{copy.chartLabel}</p>
       <div className={styles.chart}>
         {DATA.map(({ day, value }) => (
           <div key={day} className={styles.barWrapper}>

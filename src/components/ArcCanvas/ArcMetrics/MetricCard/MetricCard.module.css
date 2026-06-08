@@ -1,23 +1,26 @@
 .card {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: var(--arc-space-xs);
   padding: var(--arc-space-lg);
   background-color: var(--arc-color-surface);
   border: 1px solid var(--arc-color-border);
   border-radius: var(--arc-radius);
+  box-shadow: var(--arc-card-shadow, none);
   flex: 1;
   min-width: 0;
   transition:
     background-color var(--arc-duration) var(--arc-easing),
     border-color var(--arc-duration) var(--arc-easing),
     border-radius var(--arc-duration) var(--arc-easing),
+    box-shadow var(--arc-duration) var(--arc-easing),
     padding var(--arc-duration) var(--arc-easing);
 }
 
 .value {
   font-family: var(--arc-font-family);
-  font-size: 2rem;
+  font-size: calc(2rem * var(--arc-type-scale, 1));
   font-weight: 700;
   line-height: 1;
   color: var(--arc-color-text);
@@ -25,6 +28,7 @@
   transition:
     color var(--arc-duration) var(--arc-easing),
     font-family var(--arc-duration) var(--arc-easing),
+    font-size var(--arc-duration) var(--arc-easing),
     letter-spacing var(--arc-duration) var(--arc-easing);
 }
 

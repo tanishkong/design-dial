@@ -23,6 +23,8 @@
   --arc-color-muted:         #6B6560;
   --arc-color-border:        #E5E2DC;
   --arc-color-accent-subtle: rgba(245, 166, 35, 0.08);
+  --arc-card-shadow:         none;
+  --arc-type-scale:          1;
 
   /* Typography */
   --arc-font-family:    'Geist', sans-serif;

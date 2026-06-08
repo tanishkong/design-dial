@@ -1,89 +1,51 @@
 import { copyBank } from '../data/copyBank.js'
 
+// Derive a content archetype from dial state.
+// Priority order is load-bearing — do not reorder without re-verifying all 7 presets.
+// Verification table:
+//   Corporate SaaS  (p=20, e=30, w=25, en=35, t=75): t=75 not >75 → saas      ✓
+//   Developer Tool  (p=15, e=25, w=15, en=55, t=85): t=85 > 75   → dev       ✓
+//   Creative Studio (p=65, e=85, w=60, en=70, t=40): e≥70 && p≥50 → creative  ✓
+//   Health&Wellness (p=45, e=40, w=80, en=20, t=20): w≥70 && en<40 → wellness  ✓
+//   Luxury Editorial(p=10, e=65, w=35, en=15, t=65): isEditorial   → editorial ✓
+//   Gaming          (p=85, e=90, w=40, en=95, t=60): e≥85 && en≥85 → gaming   ✓
+//   Kids App        (p=95, e=80, w=85, en=80, t=15): p≥80 && w≥70  → kids     ✓
+function getArchetype(dialState) {
+  const { playful, expressive, warm, energetic } = dialState
+  const technical = 100 - warm
+  const isDark = technical > 75 || (expressive >= 85 && energetic >= 85)
+  const isEditorial = !isDark && expressive >= 60 && energetic < 35
+
+  if (technical > 75)                              return 'dev'
+  if (expressive >= 85 && energetic >= 85)         return 'gaming'
+  if (playful >= 80 && warm >= 70)                 return 'kids'
+  if (warm >= 70 && energetic < 40)                return 'wellness'
+  if (isEditorial)                                 return 'editorial'
+  if (expressive >= 70 && playful >= 50)           return 'creative'
+  return 'saas'
+}
+
 export function resolveCopy(dialState) {
-  const { playful, warm, energetic } = dialState
-  const serious    = 100 - playful
-  const technical  = 100 - warm
-  const calm       = 100 - energetic
+  const archetype = getArchetype(dialState)
+  const bank = (key) => copyBank[key][archetype]
 
   return {
-    cta:              resolveCta(playful, warm, serious, technical),
-    emptyHeadline:    resolveEmptyHeadline(playful, serious, warm, technical),
-    emptySubtext:     resolveEmptySubtext(playful, serious, warm, technical),
-    addButton:        resolveAddButton(playful, serious, energetic, calm),
-    navMain:          resolveNavMain(playful, serious, warm, technical),
-    metricActivity:   resolveMetricActivity(playful, serious, warm, technical),
-    metricProgress:   resolveMetricProgress(playful, serious, warm, technical),
-    inputPlaceholder: resolveInputPlaceholder(playful, serious, warm, technical),
+    // Existing fields — now archetype-driven
+    cta:              bank('cta'),
+    emptyHeadline:    bank('emptyHeadline'),
+    emptySubtext:     bank('emptySubtext'),
+    addButton:        bank('addButton'),
+    navMain:          bank('navMain'),
+    metricActivity:   bank('metricActivity'),
+    metricProgress:   bank('metricProgress'),
+    inputPlaceholder: bank('inputPlaceholder'),
+
+    // New fields — expose previously hardcoded strings
+    navLinks:         bank('navLinks'),
+    metricHours:      bank('metricHours'),
+    metricShipped:    bank('metricShipped'),
+    chartLabel:       bank('chartLabel'),
+    projectsLabel:    bank('projectsLabel'),
+    projects:         bank('projects'),
   }
-}
-
-function resolveCta(playful, warm, serious, technical) {
-  if (playful > 50 && warm > 50)      return copyBank.cta.playful_warm
-  if (playful > 50 && technical > 50) return copyBank.cta.playful_tech
-  if (serious > 50 && warm > 50)      return copyBank.cta.serious_warm
-  if (serious > 50 && technical > 50) return copyBank.cta.serious_tech
-  return copyBank.cta.default
-}
-
-function resolveEmptyHeadline(playful, serious, warm, technical) {
-  const dominant = Math.max(playful, serious, warm, technical)
-  if (dominant === playful && playful > 60)   return copyBank.emptyHeadline.playful
-  if (dominant === serious && serious > 60)   return copyBank.emptyHeadline.serious
-  if (dominant === warm && warm > 60)         return copyBank.emptyHeadline.warm
-  if (dominant === technical && technical > 60) return copyBank.emptyHeadline.technical
-  return copyBank.emptyHeadline.default
-}
-
-function resolveEmptySubtext(playful, serious, warm, technical) {
-  const dominant = Math.max(playful, serious, warm, technical)
-  if (dominant === playful && playful > 60)   return copyBank.emptySubtext.playful
-  if (dominant === serious && serious > 60)   return copyBank.emptySubtext.serious
-  if (dominant === warm && warm > 60)         return copyBank.emptySubtext.warm
-  if (dominant === technical && technical > 60) return copyBank.emptySubtext.technical
-  return copyBank.emptySubtext.default
-}
-
-function resolveAddButton(playful, serious, energetic, calm) {
-  if (energetic > 60) return copyBank.addButton.energetic
-  if (playful > 60)   return copyBank.addButton.playful
-  if (serious > 60)   return copyBank.addButton.serious
-  if (calm > 60)      return copyBank.addButton.calm
-  return copyBank.addButton.default
-}
-
-function resolveNavMain(playful, serious, warm, technical) {
-  const dominant = Math.max(playful, serious, warm, technical)
-  if (dominant === technical && technical > 60) return copyBank.navMain.technical
-  if (dominant === playful && playful > 60)   return copyBank.navMain.playful
-  if (dominant === warm && warm > 60)         return copyBank.navMain.warm
-  if (dominant === serious && serious > 60)   return copyBank.navMain.serious
-  return copyBank.navMain.default
-}
-
-function resolveMetricActivity(playful, serious, warm, technical) {
-  const dominant = Math.max(playful, serious, warm, technical)
-  if (dominant === technical && technical > 60) return copyBank.metricActivity.technical
-  if (dominant === playful && playful > 60)   return copyBank.metricActivity.playful
-  if (dominant === warm && warm > 60)         return copyBank.metricActivity.warm
-  if (dominant === serious && serious > 60)   return copyBank.metricActivity.serious
-  return copyBank.metricActivity.default
-}
-
-function resolveMetricProgress(playful, serious, warm, technical) {
-  const dominant = Math.max(playful, serious, warm, technical)
-  if (dominant === technical && technical > 60) return copyBank.metricProgress.technical
-  if (dominant === playful && playful > 60)   return copyBank.metricProgress.playful
-  if (dominant === warm && warm > 60)         return copyBank.metricProgress.warm
-  if (dominant === serious && serious > 60)   return copyBank.metricProgress.serious
-  return copyBank.metricProgress.default
-}
-
-function resolveInputPlaceholder(playful, serious, warm, technical) {
-  const dominant = Math.max(playful, serious, warm, technical)
-  if (dominant === technical && technical > 60) return copyBank.inputPlaceholder.technical
-  if (dominant === playful && playful > 60)   return copyBank.inputPlaceholder.playful
-  if (dominant === warm && warm > 60)         return copyBank.inputPlaceholder.warm
-  if (dominant === serious && serious > 60)   return copyBank.inputPlaceholder.serious
-  return copyBank.inputPlaceholder.default
 }

@@ -6,8 +6,8 @@ export default function ArcNav({ copy }) {
       <div className={styles.wordmark}>Arc</div>
       <div className={styles.links}>
         <a className={styles.link}>{copy.navMain}</a>
-        <a className={styles.link}>Activity</a>
-        <a className={styles.link}>Settings</a>
+        <a className={styles.link}>{copy.navLinks[0]}</a>
+        <a className={styles.link}>{copy.navLinks[1]}</a>
       </div>
       <button className={styles.cta}>{copy.cta}</button>
     </nav>

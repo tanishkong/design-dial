@@ -10,12 +10,11 @@
 }
 
 .wordmark {
-  font-family: var(--tool-font);
-  font-size: 13px;
-  font-weight: 500;
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
   color: var(--tool-text);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  letter-spacing: -0.01em;
 }
 
 .exportButton {

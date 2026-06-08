@@ -5,7 +5,7 @@
 
 .label {
   font-family: var(--arc-font-family);
-  font-size: 0.6875rem;
+  font-size: max(0.6rem, calc(0.6875rem * var(--arc-type-scale, 1)));
   font-weight: var(--arc-font-weight);
   letter-spacing: var(--arc-letter-spacing);
   color: var(--arc-color-muted);
@@ -25,11 +25,13 @@
   background-color: var(--arc-color-surface);
   border: 1px solid var(--arc-color-border);
   border-radius: var(--arc-radius);
+  box-shadow: var(--arc-card-shadow, none);
   padding: var(--arc-space-md);
   transition:
     background-color var(--arc-duration) var(--arc-easing),
     border-color var(--arc-duration) var(--arc-easing),
     border-radius var(--arc-duration) var(--arc-easing),
+    box-shadow var(--arc-duration) var(--arc-easing),
     padding var(--arc-duration) var(--arc-easing);
 }
 

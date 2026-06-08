@@ -14,8 +14,8 @@ export default function ArcCanvas({ dialState }) {
     <main id="arc-canvas" className={styles.canvas}>
       <ArcNav copy={copy} />
       <ArcMetrics copy={copy} />
-      <ArcChart />
-      <ArcProjectList />
+      <ArcChart copy={copy} />
+      <ArcProjectList copy={copy} />
       <ArcInput copy={copy} />
       <ArcEmptyState copy={copy} />
     </main>
