@@ -3,20 +3,25 @@ import styles from './App.module.css'
 import Header from './components/Header/Header'
 import PersonalityPanel from './components/PersonalityPanel/PersonalityPanel'
 import ArcCanvas from './components/ArcCanvas/ArcCanvas'
+import { useDialState } from './hooks/useDialState'
 import { computeTokens, applyTokensToDOM } from './engines/tokenEngine'
 
-const DEFAULT_DIAL_STATE = { playful: 50, expressive: 50, warm: 50, energetic: 50 }
-
 export default function App() {
+  const { dialState, setDial, isAnimating, setIsAnimating } = useDialState()
+
   useEffect(() => {
-    applyTokensToDOM(computeTokens(DEFAULT_DIAL_STATE))
+    applyTokensToDOM(computeTokens(dialState))
   }, [])
 
   return (
     <div className={styles.app}>
       <Header />
       <div className={styles.main}>
-        <PersonalityPanel />
+        <PersonalityPanel
+          dialState={dialState}
+          setDial={setDial}
+          isAnimating={isAnimating}
+        />
         <ArcCanvas />
       </div>
     </div>

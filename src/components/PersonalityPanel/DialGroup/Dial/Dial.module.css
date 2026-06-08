@@ -1,0 +1,90 @@
+.dial {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.axisLabels {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--tool-font);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--tool-muted);
+}
+
+.separator {
+  color: var(--tool-border);
+  font-size: 9px;
+}
+
+.value {
+  font-family: var(--tool-font);
+  font-size: 10px;
+  color: var(--tool-text);
+  opacity: 0.5;
+  min-width: 24px;
+  text-align: right;
+}
+
+/* Range input reset + custom styling */
+.track {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 2px;
+  background: var(--tool-border);
+  border-radius: 1px;
+  outline: none;
+  cursor: pointer;
+}
+
+.track:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.track::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--tool-text);
+  cursor: pointer;
+  transition: background 100ms ease, transform 100ms ease;
+}
+
+.track:not(:disabled)::-webkit-slider-thumb:hover {
+  background: var(--tool-accent);
+  transform: scale(1.2);
+}
+
+.track::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border: none;
+  border-radius: 50%;
+  background: var(--tool-text);
+  cursor: pointer;
+}
+
+.track::-webkit-slider-runnable-track {
+  height: 2px;
+  border-radius: 1px;
+}
+
+.track::-moz-range-track {
+  height: 2px;
+  background: var(--tool-border);
+  border-radius: 1px;
+}
