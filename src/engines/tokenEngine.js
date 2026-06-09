@@ -121,6 +121,12 @@ export function computeTokens(dialState) {
     accentHue = 155;
   }
 
+  // Kids App accent override: hot pink/fuchsia — vivid and fun, distinct from all other archetypes.
+  // Condition targets only Kids App (playful > 80 && warm > 70); wellness is already excluded by energetic < 40 above.
+  if (!isDark && playful > 80 && warm > 70) {
+    accentHue = 328;
+  }
+
   // Dark branch: brighter accent to pop on dark canvas.
   // Light branch: existing formula (60% → 48% as technical rises).
   const accentLight = isDark
