@@ -7,7 +7,7 @@ export default function ArcProjectList({ copy }) {
       <p className={styles.label}>{copy.projectsLabel}</p>
       <div className={styles.list}>
         {copy.projects.map((project) => (
-          <ProjectRow key={project.name} {...project} />
+          <ProjectRow key={project.name} {...project} progressUnit={copy.progressUnit} progressStyle={copy.progressStyle} />
         ))}
       </div>
     </section>

@@ -1,0 +1,52 @@
+.hero {
+  padding: var(--arc-space-xl) var(--arc-space-xl) calc(var(--arc-space-xl) * 1.5);
+}
+
+.rule {
+  height: 1px;
+  background-color: var(--arc-color-text);
+  opacity: 0.15;
+  margin-bottom: var(--arc-space-lg);
+  transition: background-color var(--arc-duration) var(--arc-easing);
+}
+
+.title {
+  font-family: var(--arc-font-family);
+  font-size: calc(3.5rem * var(--arc-type-scale, 1));
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--arc-color-text);
+  margin: 0 0 var(--arc-space-lg);
+  transition:
+    color var(--arc-duration) var(--arc-easing),
+    font-family var(--arc-duration) var(--arc-easing),
+    font-size var(--arc-duration) var(--arc-easing);
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: var(--arc-space-md);
+}
+
+.metaLabel,
+.metaValue {
+  font-family: var(--arc-font-family);
+  font-size: 0.75rem;
+  font-weight: var(--arc-font-weight);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--arc-color-muted);
+  transition:
+    color var(--arc-duration) var(--arc-easing),
+    font-family var(--arc-duration) var(--arc-easing);
+}
+
+.metaDivider {
+  width: 1px;
+  height: 10px;
+  background-color: var(--arc-color-muted);
+  opacity: 0.4;
+  flex-shrink: 0;
+}

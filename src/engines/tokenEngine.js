@@ -50,8 +50,10 @@ export function computeTokens(dialState) {
 
   // ── Font ─────────────────────────────────────────────────────────────────
   let fontFamily;
-  if (technical > 70) {
+  if (technical > 82) {
     fontFamily = "'IBM Plex Mono', monospace";
+  } else if (playful > 65 && energetic > 75 && warm < 50) {
+    fontFamily = "'Syne', sans-serif";
   } else if (playful > 65) {
     fontFamily = "'Fredoka', sans-serif";
   } else if (expressive > 70) {
@@ -60,6 +62,10 @@ export function computeTokens(dialState) {
     fontFamily = "'Plus Jakarta Sans', sans-serif";
   } else {
     fontFamily = "'Geist', sans-serif";
+  }
+  // Editorial override: Cormorant Garamond — serif identity absent from all other presets
+  if (isEditorial) {
+    fontFamily = "'Cormorant Garamond', serif";
   }
 
   // ── Typography ───────────────────────────────────────────────────────────
@@ -107,6 +113,12 @@ export function computeTokens(dialState) {
 
   if (isEditorial) {
     accentHue = 35; // warm amber/stone pole — overrides the lerp(215,35) result above
+  }
+
+  // Wellness accent override: sage green — prevents convergence with Creative Studio
+  // Both are warm-consumer presets; hue separation makes them visually distinct.
+  if (!isDark && warm >= 70 && energetic < 40) {
+    accentHue = 155;
   }
 
   // Dark branch: brighter accent to pop on dark canvas.
@@ -179,7 +191,8 @@ export function computeTokens(dialState) {
   // Terminal, Editorial, Consumer: none — matte surfaces.
   let cardGlow;
   if (isFrosted) {
-    cardGlow = `0 0 30px rgba(${aR}, ${aG}, ${aB}, 0.25)`;
+    // Outer accent glow + inset top-edge highlight — the hairline that reads as real glass
+    cardGlow = `0 0 30px rgba(${aR}, ${aG}, ${aB}, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.12)`;
   } else if (isEditorial) {
     cardGlow = '0 1px 3px rgba(0, 0, 0, 0.06)';
   } else {
@@ -187,11 +200,27 @@ export function computeTokens(dialState) {
   }
 
   // ── Accent subtle ─────────────────────────────────────────────────────────
-  // Dark: more visible on dark canvas.
-  // Light: subtle tint for hover states and accent-bg areas.
   const accentSubtle = isDark
     ? `rgba(${aR}, ${aG}, ${aB}, 0.15)`
     : `rgba(${aR}, ${aG}, ${aB}, 0.08)`;
+
+  // Stronger blur + saturation so the 5-layer gradient mesh reads through the glass
+  const backdropFilter = isFrosted ? 'blur(20px) saturate(210%) brightness(1.06)' : 'none';
+  const metricCardBg   = (playful > 80 && warm > 70) ? accentSubtle : surfaceHex;
+  const accentRgb      = `${aR}, ${aG}, ${aB}`;
+
+  // ── Canvas background pattern ─────────────────────────────────────────────
+  // SVG tiles give backdrop-filter something high-frequency to diffuse —
+  // the blur smears fine geometry into a convincing frosted material.
+  const surfaceMode = isTerminal ? 'terminal' : isFrosted ? 'frosted' : isEditorial ? 'editorial' : 'consumer';
+  let canvasPattern = 'none';
+  if (isFrosted) {
+    // Diamond grid — reads as circuitry / gaming tech under frosted glass
+    canvasPattern = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cpath d='M16 0 L32 16 L16 32 L0 16 Z' fill='none' stroke='rgba(255%2C255%2C255%2C0.04)' stroke-width='1'/%3E%3C/svg%3E\")";
+  } else if (isTerminal) {
+    // Dot matrix — terminal phosphor grid texture
+    canvasPattern = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Ccircle cx='10' cy='10' r='1.2' fill='rgba(255%2C255%2C255%2C0.055)'/%3E%3C/svg%3E\")";
+  }
 
   return {
     isDark,
@@ -203,6 +232,7 @@ export function computeTokens(dialState) {
     lineHeight,
     typeScale,
     accentHex,
+    accentRgb,
     bgHex,
     surfaceHex,
     textHex,
@@ -210,16 +240,21 @@ export function computeTokens(dialState) {
     borderColor,
     cardGlow,
     accentSubtle,
+    backdropFilter,
+    metricCardBg,
     duration,
     easing,
+    surfaceMode,
+    canvasPattern,
   };
 }
 
 function writeAllTokens(el, tokenSet) {
   const {
     radius, spaceUnit, fontFamily, fontWeight, letterSpacing,
-    lineHeight, typeScale, accentHex, bgHex, surfaceHex, textHex,
-    mutedHex, borderColor, cardGlow, accentSubtle, duration, easing,
+    lineHeight, typeScale, accentHex, accentRgb, bgHex, surfaceHex, textHex,
+    mutedHex, borderColor, cardGlow, accentSubtle, backdropFilter,
+    metricCardBg, duration, easing, canvasPattern,
   } = tokenSet;
 
   el.style.setProperty('--arc-radius',              `${Math.round(radius)}px`);
@@ -239,35 +274,42 @@ function writeAllTokens(el, tokenSet) {
   el.style.setProperty('--arc-color-accent-subtle',  accentSubtle);
   el.style.setProperty('--arc-duration',             `${duration}ms`);
   el.style.setProperty('--arc-easing',               easing);
+  el.style.setProperty('--arc-accent-rgb',            accentRgb);
+  el.style.setProperty('--arc-backdrop-filter',       backdropFilter);
+  el.style.setProperty('--arc-metric-card-bg',        metricCardBg);
+  el.style.setProperty('--arc-canvas-pattern',        canvasPattern);
 }
 
-// Module-level state for crossfade tracking.
-// null = first render, no fade needed.
-let displayedFont   = null;
-let displayedIsDark = null;
-let fontTimer       = null;
+// Per-element crossfade state — keyed by element ID.
+const _displayedState = new Map();
+const _fadeTimers     = new Map();
 
-export function applyTokensToDOM(tokenSet) {
-  const el = document.getElementById('arc-canvas');
+export function applyTokensToDOM(tokenSet, forceTransition = false, elementId = 'arc-canvas') {
+  const el = document.getElementById(elementId);
   if (!el) return;
 
-  const fontChanging     = displayedFont   !== null && tokenSet.fontFamily !== displayedFont;
-  const darkModeChanging = displayedIsDark !== null && tokenSet.isDark     !== displayedIsDark;
-  const requiresFade     = fontChanging || darkModeChanging;
+  const prev             = _displayedState.get(elementId) || { font: null, isDark: null };
+  const fontChanging     = prev.font   !== null && tokenSet.fontFamily !== prev.font;
+  const darkModeChanging = prev.isDark !== null && tokenSet.isDark     !== prev.isDark;
+  const requiresFade     = fontChanging || darkModeChanging || forceTransition;
 
   if (requiresFade) {
-    if (fontTimer) clearTimeout(fontTimer);
+    const existing = _fadeTimers.get(elementId);
+    if (existing) clearTimeout(existing);
     el.style.opacity = '0';
-    fontTimer = setTimeout(() => {
+    const timer = setTimeout(() => {
       writeAllTokens(el, tokenSet);
-      displayedFont   = tokenSet.fontFamily;
-      displayedIsDark = tokenSet.isDark;
+      el.setAttribute('data-dark', tokenSet.isDark ? 'true' : 'false');
+      el.setAttribute('data-surface', tokenSet.surfaceMode);
+      _displayedState.set(elementId, { font: tokenSet.fontFamily, isDark: tokenSet.isDark });
       el.style.opacity = '1';
-      fontTimer = null;
+      _fadeTimers.delete(elementId);
     }, 70);
+    _fadeTimers.set(elementId, timer);
   } else {
     writeAllTokens(el, tokenSet);
-    displayedFont   = tokenSet.fontFamily;
-    displayedIsDark = tokenSet.isDark;
+    el.setAttribute('data-dark', tokenSet.isDark ? 'true' : 'false');
+    el.setAttribute('data-surface', tokenSet.surfaceMode);
+    _displayedState.set(elementId, { font: tokenSet.fontFamily, isDark: tokenSet.isDark });
   }
 }

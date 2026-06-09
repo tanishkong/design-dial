@@ -3,7 +3,7 @@ import styles from './ArcEmptyState.module.css'
 export default function ArcEmptyState({ copy }) {
   return (
     <section className={styles.section}>
-      <p className={styles.label}>COLLABORATORS</p>
+      <p className={styles.label}>{copy.sectionTeam}</p>
       <div className={styles.card}>
         <div className={styles.icon} aria-hidden="true">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">

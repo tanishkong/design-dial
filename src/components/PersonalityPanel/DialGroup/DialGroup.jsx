@@ -2,10 +2,10 @@ import styles from './DialGroup.module.css'
 import Dial from './Dial/Dial'
 
 const DIALS = [
-  { axisKey: 'playful',    leftLabel: 'Playful',  rightLabel: 'Serious'     },
-  { axisKey: 'expressive', leftLabel: 'Minimal',  rightLabel: 'Expressive'  },
-  { axisKey: 'warm',       leftLabel: 'Warm',     rightLabel: 'Technical'   },
-  { axisKey: 'energetic',  leftLabel: 'Calm',     rightLabel: 'Energetic'   },
+  { axisKey: 'playful',    leftLabel: 'Serious',    rightLabel: 'Playful'    },
+  { axisKey: 'expressive', leftLabel: 'Minimal',    rightLabel: 'Expressive' },
+  { axisKey: 'warm',       leftLabel: 'Technical',  rightLabel: 'Warm'       },
+  { axisKey: 'energetic',  leftLabel: 'Calm',       rightLabel: 'Energetic'  },
 ]
 
 export default function DialGroup({ dialState, setDial, isAnimating }) {

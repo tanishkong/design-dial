@@ -1,0 +1,155 @@
+@keyframes backdropIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes panelIn {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 200;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 56px 24px 0;
+  animation: backdropIn 150ms ease both;
+}
+
+.panel {
+  width: 480px;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  background: #1A1915;
+  border: 1px solid #2A2620;
+  border-radius: 6px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: panelIn 200ms cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #F0EAD6;
+  letter-spacing: -0.01em;
+}
+
+.close {
+  font-family: var(--tool-font);
+  font-size: 9px;
+  font-weight: 500;
+  color: var(--tool-muted);
+  background: none;
+  border: 1px solid var(--tool-border);
+  border-radius: 3px;
+  padding: 3px 6px;
+  cursor: pointer;
+  letter-spacing: 0.08em;
+  transition: color 150ms ease, border-color 150ms ease;
+}
+
+.close:hover {
+  color: var(--tool-text);
+  border-color: var(--tool-muted);
+}
+
+.thesis {
+  font-family: var(--tool-font);
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--tool-text);
+  opacity: 0.75;
+  margin: 0;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sectionLabel {
+  font-family: var(--tool-font);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--tool-muted);
+}
+
+.axisList,
+.ruleList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--tool-border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.axis,
+.rule {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--tool-border);
+}
+
+.axis:last-child,
+.rule:last-child {
+  border-bottom: none;
+}
+
+.axisName {
+  font-family: var(--tool-font);
+  font-size: 10px;
+  color: var(--tool-text);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.axisEffect {
+  font-family: var(--tool-font);
+  font-size: 10px;
+  color: var(--tool-muted);
+  text-align: right;
+}
+
+.rule code {
+  font-family: var(--tool-font);
+  font-size: 10px;
+  color: var(--tool-accent);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.rule span {
+  font-family: var(--tool-font);
+  font-size: 10px;
+  color: var(--tool-muted);
+  text-align: right;
+}
+
+.footnote {
+  font-family: var(--tool-font);
+  font-size: 10px;
+  line-height: 1.65;
+  color: var(--tool-muted);
+  opacity: 0.7;
+  margin: 0;
+}

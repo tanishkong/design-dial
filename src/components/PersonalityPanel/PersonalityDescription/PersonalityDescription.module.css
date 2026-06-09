@@ -28,13 +28,14 @@
 
 .word {
   display: block;
-  font-family: 'Outfit', sans-serif;
   font-size: calc(36px * var(--arc-type-scale, 1));
   font-weight: 600;
-  color: #F0EAD6;
   line-height: 1.15;
   letter-spacing: -0.01em;
-  /* Height tracks font-size to prevent layout reflow during opacity crossfade */
-  height: calc(42px * var(--arc-type-scale, 1));
+  overflow: visible;
+  /* Fixed height prevents layout reflow during opacity crossfade.
+     52px (vs original 42px) gives headroom for varying font metrics:
+     Cormorant descenders, Fredoka cap height, IBM Plex Mono line box. */
+  height: calc(52px * var(--arc-type-scale, 1));
   transition: opacity 100ms linear, transform 100ms linear, font-size var(--arc-duration) var(--arc-easing), height var(--arc-duration) var(--arc-easing);
 }

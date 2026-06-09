@@ -1,21 +1,17 @@
 /* Arc canvas CSS variables — dynamic, updated by tokenEngine via style.setProperty */
-#arc-canvas {
-  /* Font-family crossfade bridge — opacity managed by applyTokensToDOM */
+
+/* Shared token defaults for all canvas elements */
+:is(#arc-canvas, #arc-canvas-a, #arc-canvas-b) {
   transition: opacity 70ms linear;
-  /* Geometry */
   --arc-radius:    12px;
   --arc-radius-sm: calc(var(--arc-radius) * 0.5);
   --arc-radius-lg: calc(var(--arc-radius) * 1.5);
-
-  /* Spacing */
   --arc-space-unit: 16px;
   --arc-space-xs:   calc(var(--arc-space-unit) * 0.5);
   --arc-space-sm:   calc(var(--arc-space-unit) * 0.75);
   --arc-space-md:   var(--arc-space-unit);
   --arc-space-lg:   calc(var(--arc-space-unit) * 1.5);
   --arc-space-xl:   calc(var(--arc-space-unit) * 2.5);
-
-  /* Color */
   --arc-color-accent:        #F5A623;
   --arc-color-bg:            #FAFAF9;
   --arc-color-surface:       #FFFFFF;
@@ -25,14 +21,59 @@
   --arc-color-accent-subtle: rgba(245, 166, 35, 0.08);
   --arc-card-shadow:         none;
   --arc-type-scale:          1;
-
-  /* Typography */
   --arc-font-family:    'Geist', sans-serif;
   --arc-font-weight:    400;
   --arc-letter-spacing: 0em;
   --arc-line-height:    1.55;
-
-  /* Motion */
   --arc-duration: 250ms;
   --arc-easing:   cubic-bezier(0.4, 0, 0.2, 1);
+  --arc-backdrop-filter:  none;
+  --arc-metric-card-bg:   #FFFFFF;
+  --arc-accent-rgb:       245, 166, 35;
+  --arc-canvas-pattern:   none;
+}
+
+/* Grain overlay — primary canvas (position: fixed relative to viewport) */
+#arc-canvas[data-dark="true"]::before {
+  content: '';
+  position: fixed;
+  left: 320px;
+  right: 0;
+  top: 48px;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 100;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+  opacity: 0.042;
+  mix-blend-mode: overlay;
+}
+
+/* Grain overlay — compare canvases (position: absolute within each canvas) */
+:is(#arc-canvas-a, #arc-canvas-b)[data-dark="true"]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+  opacity: 0.042;
+  mix-blend-mode: overlay;
+}
+
+/* 5-layer gradient mesh — gives backdrop-filter rich spatial frequency to diffuse.
+   Pattern layer (set per-archetype via --arc-canvas-pattern token) sits on top. */
+:is(#arc-canvas, #arc-canvas-a, #arc-canvas-b)[data-dark="true"] {
+  background-image:
+    var(--arc-canvas-pattern, none),
+    radial-gradient(ellipse 60% 40% at 18% 22%, rgba(var(--arc-accent-rgb), 0.22) 0%, transparent 60%),
+    radial-gradient(ellipse 45% 55% at 82% 68%, rgba(var(--arc-accent-rgb), 0.16) 0%, transparent 55%),
+    radial-gradient(circle at 52% 48%,          rgba(var(--arc-accent-rgb), 0.07) 0%, transparent 40%),
+    radial-gradient(ellipse 70% 30% at 8%  88%, rgba(var(--arc-accent-rgb), 0.11) 0%, transparent 50%),
+    radial-gradient(circle at 88% 12%,          rgba(var(--arc-accent-rgb), 0.09) 0%, transparent 35%);
+}
+
+#arc-canvas {
+  /* kept for specificity — JS sets all values via setProperty */
 }

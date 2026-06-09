@@ -26,8 +26,8 @@ export function usePresetTransition(setDialState, setIsAnimating, setActivePrese
     const tokenSet = computeTokens(preset.dials)
     // Animate thumbs with destination-driven easing before React state syncs
     animateDialThumbs(preset.dials, tokenSet.easing)
-    // Apply all CSS tokens to DOM (handles font crossfade internally)
-    applyTokensToDOM(tokenSet)
+    // Apply all CSS tokens to DOM — forceTransition=true for choreographed fade on every preset switch
+    applyTokensToDOM(tokenSet, true)
 
     setTimeout(() => {
       setDialState(preset.dials)

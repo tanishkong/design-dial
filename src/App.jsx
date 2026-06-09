@@ -6,12 +6,16 @@ import ArcCanvas from './components/ArcCanvas/ArcCanvas'
 import { useDialState } from './hooks/useDialState'
 import { usePresetTransition } from './hooks/usePresetTransition'
 import { computeTokens, applyTokensToDOM } from './engines/tokenEngine'
+import { presets } from './data/presets'
+
+const DEFAULT_COMPARE_PRESET = presets.find(p => p.id === 'gaming')
 
 export default function App() {
   const { dialState, setDialState, setDial: setDialRaw, isAnimating, setIsAnimating } = useDialState()
   const [activePreset, setActivePreset] = useState(null)
+  const [showCompare, setShowCompare] = useState(false)
+  const [comparePreset, setComparePreset] = useState(DEFAULT_COMPARE_PRESET)
 
-  // Clear active preset when user manually drags a dial
   function setDial(key, value) {
     setActivePreset(null)
     setDialRaw(key, value)
@@ -23,9 +27,22 @@ export default function App() {
     applyTokensToDOM(computeTokens(dialState))
   }, [])
 
+  // Sync compare canvas whenever compare mode or compare preset changes
+  useEffect(() => {
+    if (!showCompare || !comparePreset) return
+    applyTokensToDOM(computeTokens(comparePreset.dials), false, 'arc-canvas-b')
+  }, [showCompare, comparePreset])
+
   return (
     <div className={styles.app}>
-      <Header />
+      <Header
+        dialState={dialState}
+        activePreset={activePreset}
+        showCompare={showCompare}
+        onToggleCompare={() => setShowCompare(v => !v)}
+        comparePreset={comparePreset}
+        onComparePresetChange={setComparePreset}
+      />
       <div className={styles.main}>
         <PersonalityPanel
           dialState={dialState}
@@ -34,7 +51,20 @@ export default function App() {
           activePreset={activePreset}
           onPresetClick={triggerPreset}
         />
-        <ArcCanvas dialState={dialState} />
+        {showCompare ? (
+          <>
+            <div className={styles.canvasWrapper}>
+              <div className={styles.canvasLabel}>● Live</div>
+              <ArcCanvas dialState={dialState} canvasId="arc-canvas" />
+            </div>
+            <div className={styles.canvasWrapper}>
+              <div className={styles.canvasLabel}>● {comparePreset?.label ?? 'Compare'}</div>
+              <ArcCanvas dialState={comparePreset.dials} canvasId="arc-canvas-b" isCompare={true} />
+            </div>
+          </>
+        ) : (
+          <ArcCanvas dialState={dialState} canvasId="arc-canvas" />
+        )}
       </div>
     </div>
   )

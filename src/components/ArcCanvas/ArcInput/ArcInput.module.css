@@ -12,6 +12,8 @@
   flex: 1;
   padding: var(--arc-space-sm) var(--arc-space-md);
   background-color: var(--arc-color-surface);
+  backdrop-filter: var(--arc-backdrop-filter, none);
+  -webkit-backdrop-filter: var(--arc-backdrop-filter, none);
   border: 1px solid var(--arc-color-border);
   border-radius: var(--arc-radius);
   font-family: var(--arc-font-family);

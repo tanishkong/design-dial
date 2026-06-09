@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from 'react'
 import { resolveWords } from '../../../engines/personalityEngine'
+import { computeTokens } from '../../../engines/tokenEngine'
 import styles from './PersonalityDescription.module.css'
 
-function DescriptorWord({ word, delay, isAnimating }) {
+function DescriptorWord({ word, delay, isAnimating, accentHex, fontFamily }) {
   const [displayWord, setDisplayWord] = useState(word)
   const [phase, setPhase] = useState('visible') // 'visible' | 'out' | 'enter'
   const wasAnimatingRef = useRef(false)
@@ -48,7 +49,7 @@ function DescriptorWord({ word, delay, isAnimating }) {
   }
 
   return (
-    <span className={styles.word} style={style}>
+    <span className={styles.word} style={{ ...style, color: accentHex, fontFamily }}>
       {displayWord}
     </span>
   )
@@ -56,6 +57,7 @@ function DescriptorWord({ word, delay, isAnimating }) {
 
 export default function PersonalityDescription({ dialState, isAnimating }) {
   const words = resolveWords(dialState)
+  const { accentHex, fontFamily } = computeTokens(dialState)
 
   return (
     <div className={styles.root}>
@@ -63,7 +65,7 @@ export default function PersonalityDescription({ dialState, isAnimating }) {
       <div className={styles.divider} />
       <div className={styles.wordList}>
         {words.map((word, i) => (
-          <DescriptorWord key={i} word={word} delay={i * 40} isAnimating={isAnimating} />
+          <DescriptorWord key={i} word={word} delay={i * 40} isAnimating={isAnimating} accentHex={accentHex} fontFamily={fontFamily} />
         ))}
       </div>
     </div>

@@ -4,13 +4,15 @@
   gap: var(--arc-space-lg);
   padding: var(--arc-space-md) var(--arc-space-xl);
   background-color: var(--arc-color-surface);
+  backdrop-filter: var(--arc-backdrop-filter, none);
+  -webkit-backdrop-filter: var(--arc-backdrop-filter, none);
   border-bottom: 1px solid var(--arc-color-border);
   border-radius: var(--arc-radius) var(--arc-radius) 0 0;
   box-shadow: var(--arc-card-shadow, none);
   transition:
     background-color var(--arc-duration) var(--arc-easing),
     border-color var(--arc-duration) var(--arc-easing),
-    border-radius var(--arc-radius) var(--arc-easing),
+    border-radius var(--arc-duration) var(--arc-easing),
     box-shadow var(--arc-duration) var(--arc-easing),
     padding var(--arc-duration) var(--arc-easing);
 }
@@ -43,7 +45,7 @@
   letter-spacing: var(--arc-letter-spacing);
   line-height: var(--arc-line-height);
   color: var(--arc-color-muted);
-  cursor: pointer;
+  cursor: default;
   text-decoration: none;
   transition:
     color var(--arc-duration) var(--arc-easing),
@@ -60,7 +62,7 @@
   font-size: max(0.75rem, calc(0.875rem * var(--arc-type-scale, 1)));
   font-weight: 500;
   letter-spacing: var(--arc-letter-spacing);
-  color: var(--arc-color-surface);
+  color: var(--arc-color-bg);
   background-color: var(--arc-color-accent);
   border: none;
   border-radius: var(--arc-radius);
@@ -73,4 +75,8 @@
     padding var(--arc-duration) var(--arc-easing),
     font-family var(--arc-duration) var(--arc-easing),
     letter-spacing var(--arc-duration) var(--arc-easing);
+}
+
+.cta:active {
+  transform: scale(0.97);
 }

@@ -98,6 +98,7 @@
 .trackWrapper:hover .thumb {
   background: var(--tool-accent);
   transform: translateY(-50%) scale(1.2);
+  box-shadow: 0 0 0 4px rgba(245, 166, 35, 0.18);
 }
 
 /* Disabled state via sibling combinator (nativeInput is first child) */

@@ -3,6 +3,28 @@
 // Detection logic lives in copyEngine.js → getArchetype()
 
 export const copyBank = {
+  // Wordmark text shown in the canvas nav bar
+  wordmark: {
+    saas:      'Arc',
+    dev:       'arc.',
+    gaming:    'ARC',
+    kids:      'Arcadia',
+    wellness:  'Arc',
+    editorial: 'Arc',
+    creative:  'Arc',
+  },
+
+  // Whether the project list shows a progress bar ('bar') or status word ('status')
+  progressStyle: {
+    saas:      'bar',
+    dev:       'bar',
+    gaming:    'bar',
+    kids:      'bar',
+    wellness:  'bar',
+    editorial: 'status',
+    creative:  'bar',
+  },
+
   // Primary nav link (first link after wordmark)
   navMain: {
     saas:      'Dashboard',
@@ -146,6 +168,50 @@ export const copyBank = {
     creative:  'Add a collaborator to the brief.',
   },
 
+  // Chart data — 7 day values (Mon–Sun) per archetype
+  chartData: {
+    saas:      [3, 5, 6, 4, 5, 1, 2],
+    dev:       [2, 7, 5, 8, 6, 4, 1],
+    gaming:    [2, 3, 2, 4, 5, 9, 9],
+    kids:      [7, 6, 8, 5, 7, 9, 8],
+    wellness:  [5, 4, 6, 5, 6, 5, 0],
+    editorial: [0, 0, 4, 0, 7, 3, 0],
+    creative:  [0, 3, 7, 4, 8, 5, 1],
+  },
+
+  // Metric card values — [activity, progress, hours, shipped] per archetype
+  metricValues: {
+    saas:      ['7',   '23',    '18.5h', '3'],
+    dev:       ['12',  '9',     '94%',   '7'],
+    gaming:    ['42',  '8,240', '14h',   '38'],
+    kids:      ['4',   '17',    '8',     '12'],
+    wellness:  ['3',   '45',    '21',    '7'],
+    editorial: ['6',   '2',     '4',     '28'],
+    creative:  ['5',   '9',     '14',    '4'],
+  },
+
+  // Progress unit suffix shown after the progress number in project rows
+  progressUnit: {
+    saas:      '%',
+    dev:       '%',
+    gaming:    ' XP',
+    kids:      '%',
+    wellness:  '%',
+    editorial: '%',
+    creative:  '%',
+  },
+
+  // Section label above the collaborators / team empty-state card
+  sectionTeam: {
+    saas:      'Team',
+    dev:       'collaborators',
+    gaming:    'Squad',
+    kids:      'Friends',
+    wellness:  'Community',
+    editorial: 'Contributors',
+    creative:  'Collaborators',
+  },
+
   // Project list data — 4 projects per archetype
   projects: {
     saas: [
@@ -179,10 +245,10 @@ export const copyBank = {
       { name: 'Journaling',         tag: 'Reflection',  progress: 10 },
     ],
     editorial: [
-      { name: 'Identity',         tag: 'Brand',       progress: 80 },
-      { name: 'Terrain',          tag: 'Photography', progress: 60 },
-      { name: 'Solitude',         tag: 'Essay',       progress: 30 },
-      { name: 'The Long Season',  tag: 'Series',      progress: 10 },
+      { name: 'Identity',        tag: 'Brand',       progress: 80, status: 'In progress' },
+      { name: 'Terrain',         tag: 'Photography', progress: 60, status: 'Ongoing'     },
+      { name: 'Solitude',        tag: 'Essay',       progress: 30, status: 'Draft'       },
+      { name: 'The Long Season', tag: 'Series',      progress: 10, status: 'Archived'    },
     ],
     creative: [
       { name: 'Meridian',           tag: 'Identity',    progress: 80 },

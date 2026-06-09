@@ -24,6 +24,8 @@
   gap: var(--arc-space-sm);
   padding: var(--arc-space-xl);
   background-color: var(--arc-color-surface);
+  backdrop-filter: var(--arc-backdrop-filter, none);
+  -webkit-backdrop-filter: var(--arc-backdrop-filter, none);
   border: 1px solid var(--arc-color-border);
   border-radius: var(--arc-radius);
   box-shadow: var(--arc-card-shadow, none);
@@ -93,4 +95,9 @@
 
 .cta:hover {
   opacity: 0.85;
+}
+
+.cta:active {
+  transform: scale(0.97);
+  opacity: 0.9;
 }

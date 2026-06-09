@@ -8,7 +8,7 @@ export default function PersonalityPanel({ dialState, setDial, isAnimating, acti
     <aside className={styles.panel}>
       <PersonalityDescription dialState={dialState} isAnimating={isAnimating} />
       <DialGroup dialState={dialState} setDial={setDial} isAnimating={isAnimating} />
-      <PresetGrid activePreset={activePreset} onPresetClick={onPresetClick} />
+      <PresetGrid activePreset={activePreset} onPresetClick={onPresetClick} dialState={dialState} />
     </aside>
   )
 }

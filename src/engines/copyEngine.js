@@ -10,7 +10,7 @@ import { copyBank } from '../data/copyBank.js'
 //   Luxury Editorial(p=10, e=65, w=35, en=15, t=65): isEditorial   → editorial ✓
 //   Gaming          (p=85, e=90, w=40, en=95, t=60): e≥85 && en≥85 → gaming   ✓
 //   Kids App        (p=95, e=80, w=85, en=80, t=15): p≥80 && w≥70  → kids     ✓
-function getArchetype(dialState) {
+export function getArchetype(dialState) {
   const { playful, expressive, warm, energetic } = dialState
   const technical = 100 - warm
   const isDark = technical > 75 || (expressive >= 85 && energetic >= 85)
@@ -41,11 +41,17 @@ export function resolveCopy(dialState) {
     inputPlaceholder: bank('inputPlaceholder'),
 
     // New fields — expose previously hardcoded strings
+    wordmark:         bank('wordmark'),
+    progressStyle:    bank('progressStyle'),
     navLinks:         bank('navLinks'),
     metricHours:      bank('metricHours'),
     metricShipped:    bank('metricShipped'),
     chartLabel:       bank('chartLabel'),
     projectsLabel:    bank('projectsLabel'),
     projects:         bank('projects'),
+    chartData:        bank('chartData'),
+    metricValues:     bank('metricValues'),
+    progressUnit:     bank('progressUnit'),
+    sectionTeam:      bank('sectionTeam'),
   }
 }
