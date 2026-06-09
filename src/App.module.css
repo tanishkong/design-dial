@@ -39,6 +39,90 @@
   border-left: 1px solid var(--tool-border);
 }
 
+/* Compare canvas wrapper: slide in when compare mode activates */
+@keyframes wrapperEnter {
+  from { opacity: 0; transform: translateX(10px); }
+}
+
+.canvasWrapper {
+  animation: wrapperEnter 350ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Single canvas — relative so TokenReadout can be absolutely positioned inside */
+.canvasSingle {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  position: relative;
+}
+
+/* Mobile fallback — shown only when viewport < 768px */
+.mobileBlock {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .app {
+    display: none;
+  }
+
+  .mobileBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100dvh;
+    padding: 40px 28px;
+    text-align: center;
+    background: #0e0c0a;
+    color: #f0ead6;
+    gap: 0;
+  }
+
+  .mobileTitle {
+    font-family: 'Geist', sans-serif;
+    font-size: 40px;
+    font-weight: 300;
+    letter-spacing: -0.03em;
+    color: #f0ead6;
+    margin: 0 0 16px;
+  }
+
+  .mobileThesis {
+    font-family: 'Geist Mono', monospace;
+    font-size: 12px;
+    line-height: 1.7;
+    color: rgba(240, 234, 214, 0.55);
+    max-width: 320px;
+    margin: 0 0 12px;
+  }
+
+  .mobileNote {
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px;
+    line-height: 1.6;
+    color: rgba(240, 234, 214, 0.35);
+    max-width: 300px;
+    margin: 0 0 32px;
+  }
+
+  .mobileLink {
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px;
+    color: rgba(240, 234, 214, 0.5);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(240, 234, 214, 0.2);
+    padding-bottom: 2px;
+    transition: color 150ms ease, border-color 150ms ease;
+  }
+
+  .mobileLink:hover {
+    color: rgba(240, 234, 214, 0.8);
+    border-color: rgba(240, 234, 214, 0.5);
+  }
+}
+
 /* Entry animations — fire when .appEntered class is added after intro dismisses */
 @keyframes panelEnter {
   from {

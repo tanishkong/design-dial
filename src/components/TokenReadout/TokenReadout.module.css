@@ -1,0 +1,117 @@
+.panel {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 232px;
+  background: var(--tool-panel);
+  border-left: 1px solid var(--tool-border);
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+  overflow: hidden;
+  animation: slideIn 320ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  padding: 0 14px;
+  border-bottom: 1px solid var(--tool-border);
+  flex-shrink: 0;
+}
+
+.title {
+  font-family: 'Geist', sans-serif;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--tool-muted);
+}
+
+.close {
+  font-family: var(--tool-font);
+  font-size: 16px;
+  line-height: 1;
+  color: var(--tool-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: color 150ms ease;
+}
+
+.close:hover {
+  color: var(--tool-text);
+}
+
+.body {
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: none;
+  padding-bottom: 16px;
+}
+
+.body::-webkit-scrollbar {
+  display: none;
+}
+
+.group {
+  padding-top: 14px;
+}
+
+.groupLabel {
+  display: block;
+  font-family: 'Geist', sans-serif;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--tool-muted);
+  opacity: 0.45;
+  padding: 0 14px 6px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3px 14px;
+  gap: 8px;
+}
+
+.tokenName {
+  font-family: var(--tool-font);
+  font-size: 9px;
+  color: var(--tool-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  min-width: 0;
+}
+
+.tokenValue {
+  font-family: var(--tool-font);
+  font-size: 9px;
+  color: var(--tool-text);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.swatch {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}

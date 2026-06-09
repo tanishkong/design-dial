@@ -10,6 +10,7 @@ export default function PersonalityPanel({ dialState, setDial, isAnimating, acti
       <DialGroup dialState={dialState} setDial={setDial} isAnimating={isAnimating} />
       <PresetGrid activePreset={activePreset} onPresetClick={onPresetClick} dialState={dialState} />
       <footer className={styles.footer}>
+        <p className={styles.thesis}>Personality as a function,<br/>not a style choice.</p>
         <a
           href="https://github.com/tanishkong/design-dial"
           target="_blank"

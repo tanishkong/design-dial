@@ -4,6 +4,7 @@ import Header from './components/Header/Header'
 import PersonalityPanel from './components/PersonalityPanel/PersonalityPanel'
 import ArcCanvas from './components/ArcCanvas/ArcCanvas'
 import IntroSplash from './components/IntroSplash/IntroSplash'
+import TokenReadout from './components/TokenReadout/TokenReadout'
 import { useDialState } from './hooks/useDialState'
 import { usePresetTransition } from './hooks/usePresetTransition'
 import { computeTokens, applyTokensToDOM } from './engines/tokenEngine'
@@ -11,7 +12,11 @@ import { presets } from './data/presets'
 
 const DEFAULT_COMPARE_PRESET = presets.find(p => p.id === 'gaming')
 
-// Show intro only on fresh visits (no URL dial params)
+// Dark-mode archetypes to cycle through during the intro splash
+const INTRO_CYCLE = ['gaming', 'developer-tool', 'creative-studio'].map(id =>
+  presets.find(p => p.id === id)
+).filter(Boolean)
+
 function hasUrlDialState() {
   const params = new URLSearchParams(window.location.search)
   return ['playful', 'expressive', 'warm', 'energetic'].every(k => params.has(k))
@@ -28,6 +33,7 @@ export default function App() {
   const [comparePreset, setComparePreset] = useState(DEFAULT_COMPARE_PRESET)
   const [showIntro, setShowIntro] = useState(() => !hasUrlDialState())
   const [appEntered, setAppEntered] = useState(() => hasUrlDialState())
+  const [showTokens, setShowTokens] = useState(false)
 
   function setDial(key, value) {
     setActivePreset(null)
@@ -49,11 +55,25 @@ export default function App() {
   function handleIntroDismiss() {
     setShowIntro(false)
     setAppEntered(true)
+    // Re-sync canvas to current dialState after intro cycling
+    applyTokensToDOM(computeTokens(dialState), true)
   }
 
+  // Initial token apply
   useEffect(() => {
     applyTokensToDOM(computeTokens(dialState))
   }, [])
+
+  // Cycle through dark archetypes behind the splash to show the tool in motion
+  useEffect(() => {
+    if (!showIntro) return
+    let i = 0
+    const id = setInterval(() => {
+      i = (i + 1) % INTRO_CYCLE.length
+      applyTokensToDOM(computeTokens(INTRO_CYCLE[i].dials), true)
+    }, 2200)
+    return () => clearInterval(id)
+  }, [showIntro])
 
   // Sync compare canvas whenever compare mode or compare preset changes
   useEffect(() => {
@@ -61,7 +81,6 @@ export default function App() {
     applyTokensToDOM(computeTokens(comparePreset.dials), false, 'arc-canvas-b')
   }, [showCompare, comparePreset])
 
-  // Build compare diff label — shows 3 key token differences
   function compareLabel(tokenSet, fallback) {
     if (!tokenSet) return fallback
     const font = shortFontName(tokenSet.fontFamily)
@@ -70,12 +89,28 @@ export default function App() {
     return `${font} · ${mode} · ${radius}`
   }
 
-  const liveTokens  = showCompare ? computeTokens(dialState) : null
-  const cmpTokens   = showCompare && comparePreset ? computeTokens(comparePreset.dials) : null
+  const liveTokens = showCompare ? computeTokens(dialState) : null
+  const cmpTokens  = showCompare && comparePreset ? computeTokens(comparePreset.dials) : null
 
   return (
     <>
       {showIntro && <IntroSplash onDismiss={handleIntroDismiss} />}
+
+      {/* Mobile fallback — hidden on desktop via CSS */}
+      <div className={styles.mobileBlock}>
+        <h1 className={styles.mobileTitle}>Design Dial</h1>
+        <p className={styles.mobileThesis}>Personality as a function, not a style choice.</p>
+        <p className={styles.mobileNote}>This tool is built for desktop. Open it on a larger screen for the full experience.</p>
+        <a
+          href="https://github.com/tanishkong/design-dial"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.mobileLink}
+        >
+          View source on GitHub →
+        </a>
+      </div>
+
       <div className={`${styles.app} ${appEntered ? styles.appEntered : ''}`}>
         <Header
           dialState={dialState}
@@ -85,6 +120,8 @@ export default function App() {
           comparePreset={comparePreset}
           onComparePresetChange={setComparePreset}
           onRandomize={handleRandomize}
+          showTokens={showTokens}
+          onToggleTokens={() => setShowTokens(v => !v)}
         />
         <div className={styles.main}>
           <PersonalityPanel
@@ -106,7 +143,12 @@ export default function App() {
               </div>
             </>
           ) : (
-            <ArcCanvas dialState={dialState} canvasId="arc-canvas" />
+            <div className={styles.canvasSingle}>
+              <ArcCanvas dialState={dialState} canvasId="arc-canvas" />
+              {showTokens && (
+                <TokenReadout dialState={dialState} onClose={() => setShowTokens(false)} />
+              )}
+            </div>
           )}
         </div>
       </div>

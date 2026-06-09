@@ -70,7 +70,7 @@ function buildFigmaExport(t) {
   return JSON.stringify(tokens, null, 2)
 }
 
-export default function Header({ dialState, activePreset, showCompare, onToggleCompare, comparePreset, onComparePresetChange, onRandomize }) {
+export default function Header({ dialState, activePreset, showCompare, onToggleCompare, comparePreset, onComparePresetChange, onRandomize, showTokens, onToggleTokens }) {
   const [copiedCss, setCopiedCss] = useState(false)
   const [copiedFigma, setCopiedFigma] = useState(false)
   const [copiedUrl, setCopiedUrl] = useState(false)
@@ -161,6 +161,15 @@ export default function Header({ dialState, activePreset, showCompare, onToggleC
               ))}
             </div>
           )}
+          <button
+            className={`${styles.liveButton} ${showTokens ? styles.liveActive : ''}`}
+            onClick={onToggleTokens}
+            type="button"
+            title="Toggle live token readout"
+            style={{ '--header-accent': accentHex }}
+          >
+            Live tokens
+          </button>
           <button
             className={styles.randomizeButton}
             onClick={onRandomize}

@@ -225,10 +225,38 @@
   border-color: var(--tool-muted);
 }
 
+.liveButton {
+  font-family: var(--tool-font);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--tool-muted);
+  background: none;
+  border: 1px solid var(--tool-border);
+  border-radius: var(--tool-radius);
+  padding: 4px 10px;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  transition: color 150ms ease, border-color 150ms ease, background 150ms ease;
+  flex-shrink: 0;
+}
+
+.liveButton:hover {
+  color: var(--header-accent, var(--tool-text));
+  border-color: var(--header-accent, var(--tool-muted));
+}
+
+.liveActive {
+  color: var(--header-accent, var(--tool-text));
+  border-color: var(--header-accent, var(--tool-muted));
+  background: color-mix(in srgb, var(--header-accent, transparent) 8%, transparent);
+}
+
 .exportButton:active,
 .compareButton:active,
 .infoButton:active,
 .randomizeButton:active,
-.shareButton:active {
+.shareButton:active,
+.liveButton:active {
   transform: scale(0.95);
 }
