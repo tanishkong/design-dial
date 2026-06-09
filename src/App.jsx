@@ -23,6 +23,16 @@ export default function App() {
 
   const { triggerPreset } = usePresetTransition(setDialState, setIsAnimating, setActivePreset)
 
+  function handleRandomize() {
+    const randomDials = {
+      playful:    Math.round(Math.random() * 100),
+      expressive: Math.round(Math.random() * 100),
+      warm:       Math.round(Math.random() * 100),
+      energetic:  Math.round(Math.random() * 100),
+    }
+    triggerPreset({ id: null, dials: randomDials })
+  }
+
   useEffect(() => {
     applyTokensToDOM(computeTokens(dialState))
   }, [])
@@ -42,6 +52,7 @@ export default function App() {
         onToggleCompare={() => setShowCompare(v => !v)}
         comparePreset={comparePreset}
         onComparePresetChange={setComparePreset}
+        onRandomize={handleRandomize}
       />
       <div className={styles.main}>
         <PersonalityPanel
