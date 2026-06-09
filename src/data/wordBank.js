@@ -1,10 +1,10 @@
 export const wordBank = {
   playful: [
-    { max: 20,  word: 'Playful'  },
-    { max: 40,  word: 'Friendly' },
+    { max: 20,  word: 'Serious'  },
+    { max: 40,  word: 'Focused'  },
     { max: 60,  word: 'Balanced' },
-    { max: 80,  word: 'Focused'  },
-    { max: 100, word: 'Serious'  },
+    { max: 80,  word: 'Friendly' },
+    { max: 100, word: 'Playful'  },
   ],
   expressive: [
     { max: 20,  word: 'Restrained' },
@@ -14,11 +14,11 @@ export const wordBank = {
     { max: 100, word: 'Bold'       },
   ],
   warm: [
-    { max: 20,  word: 'Human'     },
-    { max: 40,  word: 'Warm'      },
+    { max: 20,  word: 'Technical' },
+    { max: 40,  word: 'Precise'   },
     { max: 60,  word: 'Neutral'   },
-    { max: 80,  word: 'Precise'   },
-    { max: 100, word: 'Technical' },
+    { max: 80,  word: 'Warm'      },
+    { max: 100, word: 'Human'     },
   ],
   energetic: [
     { max: 20,  word: 'Calm'     },
