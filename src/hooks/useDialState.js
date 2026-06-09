@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import { computeTokens, applyTokensToDOM } from '../engines/tokenEngine'
 
-const INITIAL_STATE = { playful: 50, expressive: 50, warm: 50, energetic: 50 }
+// Creative Studio — visually impressive first impression (dark frosted → expressive palette)
+const INITIAL_STATE = { playful: 65, expressive: 85, warm: 60, energetic: 70 }
 
 function readUrlState() {
   const params = new URLSearchParams(window.location.search)

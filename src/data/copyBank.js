@@ -61,7 +61,7 @@ export const copyBank = {
   // Metric 1 label — active/primary count
   metricActivity: {
     saas:      'Active projects',
-    dev:       'open_prs',
+    dev:       'tokens_live',
     gaming:    'LEVEL',
     kids:      'Stars earned',
     wellness:  'Practices',
@@ -72,7 +72,7 @@ export const copyBank = {
   // Metric 2 label — ideas/throughput
   metricProgress: {
     saas:      'Ideas this week',
-    dev:       'builds_today',
+    dev:       'archetypes',
     gaming:    'XP THIS WEEK',
     kids:      'Badges',
     wellness:  'Mindful minutes',
@@ -83,7 +83,7 @@ export const copyBank = {
   // Metric 3 label — time/focus (currently hardcoded "Hours Focused")
   metricHours: {
     saas:      'Hours focused',
-    dev:       'test_pass%',
+    dev:       'font_families',
     gaming:    'HOURS PLAYED',
     kids:      'Days played',
     wellness:  'Streak',
@@ -94,7 +94,7 @@ export const copyBank = {
   // Metric 4 label — completion/shipped (currently hardcoded "Shipped")
   metricShipped: {
     saas:      'Shipped',
-    dev:       'deploys',
+    dev:       'css_exports',
     gaming:    'ACHIEVEMENTS',
     kids:      'Quests done',
     wellness:  'Milestones',
@@ -182,7 +182,7 @@ export const copyBank = {
   // Metric card values — [activity, progress, hours, shipped] per archetype
   metricValues: {
     saas:      ['7',   '23',    '18.5h', '3'],
-    dev:       ['12',  '9',     '94%',   '7'],
+    dev:       ['20+', '7',     '4',     '12'],
     gaming:    ['42',  '8,240', '14h',   '38'],
     kids:      ['4',   '17',    '8',     '12'],
     wellness:  ['3',   '45',    '21',    '7'],
@@ -221,10 +221,10 @@ export const copyBank = {
       { name: 'Steam Memories', tag: 'Case Study', progress: 10 },
     ],
     dev: [
-      { name: 'design-dial',   tag: 'typescript', progress: 80 },
-      { name: 'auth-service',  tag: 'rust',       progress: 60 },
-      { name: 'ml-pipeline',   tag: 'python',     progress: 30 },
-      { name: 'cli-tools',     tag: 'go',         progress: 10 },
+      { name: 'tokenEngine.js',        tag: 'engine', progress: 80 },
+      { name: 'copyEngine.js',         tag: 'engine', progress: 60 },
+      { name: 'personalityEngine.js',  tag: 'engine', progress: 55 },
+      { name: 'useDialState.js',       tag: 'hook',   progress: 30 },
     ],
     gaming: [
       { name: 'The Last Frontier', tag: 'RPG',      progress: 80 },

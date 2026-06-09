@@ -7,4 +7,28 @@
   position: sticky;
   top: 0;
   height: calc(100vh - 48px);
+  display: flex;
+  flex-direction: column;
+}
+
+.footer {
+  margin-top: auto;
+  padding: 16px 20px;
+  border-top: 1px solid var(--tool-border);
+}
+
+.footerLink {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--tool-muted);
+  text-decoration: none;
+  font-family: var(--tool-font);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  transition: color 150ms ease;
+}
+
+.footerLink:hover {
+  color: var(--tool-text);
 }

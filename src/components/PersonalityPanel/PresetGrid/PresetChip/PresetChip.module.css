@@ -37,9 +37,9 @@
 
 .name {
   flex: 1;
-  font-family: var(--tool-font);
+  font-family: 'Geist', sans-serif;
   font-size: 11px;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
   color: var(--tool-muted);
   transition: color 150ms ease;
 }

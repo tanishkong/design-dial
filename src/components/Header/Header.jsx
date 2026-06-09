@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import styles from './Header.module.css'
 import HowItWorks from './HowItWorks/HowItWorks'
 import { computeTokens } from '../../engines/tokenEngine'
@@ -85,6 +85,17 @@ export default function Header({ dialState, activePreset, showCompare, onToggleC
 
   const archetypeLabel = dialState ? ARCHETYPE_LABELS[getArchetype(dialState)] : null
 
+  // Pulse the archetype label whenever surface mode crosses a boundary
+  const prevSurfaceMode = useRef(null)
+  const [archetypePulseKey, setArchetypePulseKey] = useState(0)
+  useEffect(() => {
+    const currentMode = t?.surfaceMode
+    if (prevSurfaceMode.current !== null && prevSurfaceMode.current !== currentMode) {
+      setArchetypePulseKey(k => k + 1)
+    }
+    prevSurfaceMode.current = currentMode
+  }, [t?.surfaceMode])
+
   function handleShareUrl() {
     navigator.clipboard.writeText(window.location.href)
     setCopiedUrl(true)
@@ -115,7 +126,7 @@ export default function Header({ dialState, activePreset, showCompare, onToggleC
             {activePresetLabel}
           </span>
           {archetypeLabel && (
-            <span className={styles.archetypeLabel}>{archetypeLabel}</span>
+            <span key={archetypePulseKey} className={styles.archetypeLabel}>{archetypeLabel}</span>
           )}
           <button
             className={styles.infoButton}
@@ -163,7 +174,7 @@ export default function Header({ dialState, activePreset, showCompare, onToggleC
             onClick={handleShareUrl}
             type="button"
           >
-            {copiedUrl ? 'Copied!' : '↗ Share'}
+            {copiedUrl ? 'Copied!' : '⎘ Copy URL'}
           </button>
           <button
             className={styles.exportButton}

@@ -5,7 +5,7 @@
 
 .sectionLabel {
   display: block;
-  font-family: var(--tool-font);
+  font-family: 'Geist', sans-serif;
   font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
