@@ -2,7 +2,18 @@ import { useState } from 'react'
 import styles from './Header.module.css'
 import HowItWorks from './HowItWorks/HowItWorks'
 import { computeTokens } from '../../engines/tokenEngine'
+import { getArchetype } from '../../engines/copyEngine'
 import { presets } from '../../data/presets'
+
+const ARCHETYPE_LABELS = {
+  saas:      'Corporate SaaS',
+  dev:       'Developer Tool',
+  gaming:    'Gaming',
+  kids:      'Kids App',
+  wellness:  'Health & Wellness',
+  editorial: 'Luxury Editorial',
+  creative:  'Creative Studio',
+}
 
 function buildCssExport(t) {
   const lines = [
@@ -59,9 +70,10 @@ function buildFigmaExport(t) {
   return JSON.stringify(tokens, null, 2)
 }
 
-export default function Header({ dialState, activePreset, showCompare, onToggleCompare, comparePreset, onComparePresetChange }) {
+export default function Header({ dialState, activePreset, showCompare, onToggleCompare, comparePreset, onComparePresetChange, onRandomize }) {
   const [copiedCss, setCopiedCss] = useState(false)
   const [copiedFigma, setCopiedFigma] = useState(false)
+  const [copiedUrl, setCopiedUrl] = useState(false)
   const [showInfo, setShowInfo] = useState(false)
 
   const t = dialState ? computeTokens(dialState) : null
@@ -70,6 +82,14 @@ export default function Header({ dialState, activePreset, showCompare, onToggleC
   const activePresetLabel = activePreset
     ? presets.find(p => p.id === activePreset)?.label ?? 'Custom'
     : 'Custom'
+
+  const archetypeLabel = dialState ? ARCHETYPE_LABELS[getArchetype(dialState)] : null
+
+  function handleShareUrl() {
+    navigator.clipboard.writeText(window.location.href)
+    setCopiedUrl(true)
+    setTimeout(() => setCopiedUrl(false), 2000)
+  }
 
   function handleExportCss() {
     if (!t) return
@@ -94,6 +114,9 @@ export default function Header({ dialState, activePreset, showCompare, onToggleC
           <span className={styles.presetLabel} style={{ '--header-accent': accentHex }}>
             {activePresetLabel}
           </span>
+          {archetypeLabel && (
+            <span className={styles.archetypeLabel}>{archetypeLabel}</span>
+          )}
           <button
             className={styles.infoButton}
             onClick={() => setShowInfo(v => !v)}
@@ -127,6 +150,21 @@ export default function Header({ dialState, activePreset, showCompare, onToggleC
               ))}
             </div>
           )}
+          <button
+            className={styles.randomizeButton}
+            onClick={onRandomize}
+            type="button"
+            title="Randomize dials"
+          >
+            ↺ Randomize
+          </button>
+          <button
+            className={styles.shareButton}
+            onClick={handleShareUrl}
+            type="button"
+          >
+            {copiedUrl ? 'Copied!' : '↗ Share'}
+          </button>
           <button
             className={styles.exportButton}
             onClick={handleExportCss}

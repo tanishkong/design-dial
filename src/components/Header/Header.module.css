@@ -161,8 +161,62 @@
   border-color: var(--header-accent, var(--tool-muted));
 }
 
+.archetypeLabel {
+  font-family: var(--tool-font);
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--tool-muted);
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  opacity: 0.7;
+}
+
+.randomizeButton {
+  font-family: var(--tool-font);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--tool-muted);
+  background: none;
+  border: 1px solid var(--tool-border);
+  border-radius: var(--tool-radius);
+  padding: 4px 10px;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  transition: color 150ms ease, border-color 150ms ease;
+  flex-shrink: 0;
+}
+
+.randomizeButton:hover {
+  color: var(--tool-text);
+  border-color: var(--tool-muted);
+}
+
+.shareButton {
+  font-family: var(--tool-font);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--tool-muted);
+  background: none;
+  border: 1px solid var(--tool-border);
+  border-radius: var(--tool-radius);
+  padding: 4px 10px;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  transition: color 150ms ease, border-color 150ms ease;
+  flex-shrink: 0;
+}
+
+.shareButton:hover {
+  color: var(--tool-text);
+  border-color: var(--tool-muted);
+}
+
 .exportButton:active,
 .compareButton:active,
-.infoButton:active {
+.infoButton:active,
+.randomizeButton:active,
+.shareButton:active {
   transform: scale(0.95);
 }
