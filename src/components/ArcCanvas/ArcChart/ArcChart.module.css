@@ -1,6 +1,6 @@
 .section {
   padding: var(--arc-space-xl);
-  padding-top: 0;
+  padding-top: var(--arc-space-lg);
 }
 
 .label {
